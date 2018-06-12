@@ -2,7 +2,7 @@
   "name": "audrey-mum",
   "description": "An information system for pregnant mums",
   "version": "0.0.0",
-  "homepage": "",
+  "homepage": "localhost:3030",
   "main": "src",
   "keywords": [
     "feathers"
