@@ -4,12 +4,12 @@ const compress = require('compression');
 const helmet = require('helmet');
 const cors = require('cors');
 const logger = require('winston');
+require('dotenv').config();
 
 const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
 const express = require('@feathersjs/express');
 const socketio = require('@feathersjs/socketio');
-
 
 const middleware = require('./middleware');
 const services = require('./services');
@@ -17,6 +17,8 @@ const appHooks = require('./app.hooks');
 const channels = require('./channels');
 
 const mongoose = require('./mongoose');
+
+const authentication = require('./authentication');
 
 const app = express(feathers());
 
@@ -40,6 +42,7 @@ app.configure(mongoose);
 
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);
+app.configure(authentication);
 // Set up our services (see `services/index.js`)
 app.configure(services);
 // Set up event channels (see channels.js)

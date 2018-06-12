@@ -7,9 +7,10 @@ module.exports = function (app) {
   const { Schema } = mongooseClient;
   const people = new Schema({
     apmisId: { type: String, required: true },
-    ExpectedDateOfDelivery: { type: Date, 'default':Date.now, required: true },
-    noOfPreviousChildren: { type: Number,'default':0, required: true },
-    isActive: { type: Boolean, 'default':true, required: true },
+    personId:{type: String, required: false},
+    ExpectedDateOfDelivery: { type: Date, 'default':Date.now, required: false },
+    noOfPreviousChildren: { type: Number,'default':0, required: false },
+    isActive: { type: Boolean, 'default':true, required: false },
   }, {
     timestamps: true
   });
