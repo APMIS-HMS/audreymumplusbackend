@@ -6,7 +6,7 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const packApplication = new Schema({
-    apmisId: { type: String, required: true },
+    peopleId: { type: String, required: true },
     transactions: [{
       isAccepted: { type: String, required: true },
       packageType: { type: String, required: true },
