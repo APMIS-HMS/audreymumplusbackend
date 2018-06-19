@@ -18,7 +18,7 @@ class Service {
   }
 
   async create(data, params) {
-    
+
     const peopleService = this.app.service('people');
     const userService = this.app.service('users');
 
@@ -28,7 +28,7 @@ class Service {
 
     try {
       const makeRequest = await this.personOptions(url, person);
-
+      console.log('Logs ================\n', makeRequest);
       // Convert callback from APMIS (makeRquest) to JSON
       const parseRequest = JSON.parse(makeRequest);
       
