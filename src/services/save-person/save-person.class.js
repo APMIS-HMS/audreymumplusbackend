@@ -18,7 +18,7 @@ class Service {
   }
 
   async create(data, params) {
-
+    
     const peopleService = this.app.service('people');
     const userService = this.app.service('users');
 
