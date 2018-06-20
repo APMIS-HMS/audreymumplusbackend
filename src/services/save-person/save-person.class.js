@@ -26,6 +26,9 @@ class Service {
     const url =`${process.env.APMIS_PERSON}/save-person`;
     const person = data;
 
+    let res = {};
+
+
     try {
       const makeRequest = await this.personOptions(url, person);
       console.log('Logs ================\n', makeRequest);
@@ -59,18 +62,22 @@ class Service {
         
         //Prepare response
 
-        const res = {
-          people: peopleRes,
-          user: userRes
-        };
+        res.people = peopleRes;
+        res.user = userRes;
+        
 
         // Return successfull response and terminate process
 
         return jsend.success(res);
       }
     } catch (error) {
+      //Initialise error response message
+      res.status = error.status;
+      res.name = error.message.name;
+      res.code = error.message.code;
+      res.message = error.message.message;
       // Return error response and terminate the process
-      return jsend.error(error);
+      return jsend.error(res);
     }
   }
 
