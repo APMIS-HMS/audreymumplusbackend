@@ -41,7 +41,7 @@ class Service {
         //Request Successfully initiated. Proceed. Initialise variabls
         const user = {
           email: parseRequest.email,
-          password: parseRequest.password
+          password: data.person.password
         };
 
         const people = {
