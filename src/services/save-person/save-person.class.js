@@ -31,7 +31,7 @@ class Service {
 
     try {
       const makeRequest = await this.personOptions(url, person);
-      console.log('Logs ================\n', makeRequest);
+      
       // Convert callback from APMIS (makeRquest) to JSON
       const parseRequest = JSON.parse(makeRequest);
 
