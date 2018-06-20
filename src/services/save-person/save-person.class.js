@@ -75,7 +75,7 @@ class Service {
       res.status = error.status;
       res.name = error.message.name;
       res.code = error.message.code;
-      res.message = error.message.message;
+      res.message = error.message;
       // Return error response and terminate the process
       return jsend.error(res);
     }
