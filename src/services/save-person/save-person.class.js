@@ -41,12 +41,8 @@ class Service {
         return jsend.error('Could not initiate request');
       }
       else {
-        //Request Successfully initiated. Proceed. Initialise variabls
-        const user = {
-          email: parseRequest.email,
-          password: data.person.password
-        };
-
+        //Request Successfully initiated. Proceed. Initialise variables
+        
         const people = {
           apmisId: parseRequest.apmisId,
           personId: parseRequest._id,
@@ -56,17 +52,6 @@ class Service {
         let userRes;
 
         let peopleRes;
-        try {
-          userRes = await userService.create(user);
-        } catch (error) {
-          res = {
-            status: error.status,
-            name: error.message.name,
-            code: error.message.code,
-            message: error.message.message
-          };
-          return jsend.error(res);
-        }
 
         // Create record on people's collection
         try {
@@ -81,6 +66,26 @@ class Service {
           return jsend.error(res);
         }
 
+        //Request Successfully initiated. Proceed. Initialise variables
+        const user = {
+          email: parseRequest.email,
+          password: data.person.password,
+          personId:peopleRes._id
+        };
+
+        try {
+          userRes = await userService.create(user);
+        } catch (error) {
+          res = {
+            status: error.status,
+            name: error.message.name,
+            code: error.message.code,
+            message: error.message.message
+          };
+          return jsend.error(res);
+        }
+
+        
         //Prepare response
 
         res = {
