@@ -9,9 +9,8 @@ module.exports = function (app) {
   
     email: {type: String, unique: true, required:true},
     password: { type: String, required:true },
-    personId:{type: Schema.Types.ObjectId, required: false}
-  
-  
+    firstName:{type: String, required: false},
+    lastName:{type: String, required: false}
   }, {
     timestamps: true
   });

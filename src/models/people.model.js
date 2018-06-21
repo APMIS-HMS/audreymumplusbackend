@@ -8,6 +8,12 @@ module.exports = function (app) {
   const people = new Schema({
     apmisId: { type: String, required: true },
     personId:{type: String, required: false},
+    title:{type: String, required: true},
+    firstName:{type: String, required: true},
+    lastName:{type: String, required: true},
+    dateOfBirth:{type: Date,'default':Date.now, required: true},
+    motherMaidenName:{type: String, required: true},
+    primaryContactPhoneNo:{type: String, required: true},
     ExpectedDateOfDelivery: { type: Date, 'default':Date.now, required: false },
     noOfPreviousChildren: { type: Number,'default':0, required: false },
     isActive: { type: Boolean, 'default':true, required: false },

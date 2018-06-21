@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 const request = require('request-promise');
 const jsend = require('jsend');
+const sms = require('../../custom/sms-sender');
 
 class Service {
   constructor(options) {
@@ -46,6 +47,12 @@ class Service {
         const people = {
           apmisId: parseRequest.apmisId,
           personId: parseRequest._id,
+          title:parseRequest.title,
+          firstName:parseRequest.firstName,
+          lastName:parseRequest.lastName,
+          dateOfBirth:parseRequest.dateOfBirth,
+          motherMaidenName:parseRequest.motherMaidenName,
+          primaryContactPhoneNo:parseRequest.primaryContactPhoneNo,
         };
 
         // Create record in User's collection
@@ -70,7 +77,8 @@ class Service {
         const user = {
           email: parseRequest.email,
           password: data.person.password,
-          personId:peopleRes._id
+          firstName:parseRequest.firstName,
+          lastName:parseRequest.lastName
         };
 
         try {
@@ -86,12 +94,19 @@ class Service {
         }
 
         
+        //Delete password from response
+        delete userRes.password;
         //Prepare response
-
+        let msg ={
+          primaryContactPhoneNo:parseRequest.primaryContactPhoneNo,
+          message:'Thank you for signing up on audrey mum-plus'
+        };
         res = {
           people: peopleRes,
           user: userRes
         };
+
+        sms.sendPatientDetail(msg);
         // Return successfull response and terminate process
         return jsend.success(res);
       }
@@ -101,7 +116,7 @@ class Service {
         status: error.status,
         name: error.message.name,
         code: error.message.code,
-        message: error.message
+        message: error.message.message
       };
       // Return error response and terminate the process
       return jsend.error(res);
