@@ -1,34 +1,4 @@
 {
-  "host": "localhost",
-  "port": 3030,
-  "public": "../public/",
-  "paginate": {
-    "default": 10,
-    "max": 50
-  },
-  "mongodb": "mongodb://liztank:lizzy@2018@ds159020.mlab.com:59020/audrey-mum",
-  "authentication": {
-    "secret": "31a2ca550fb868d584cc8ff026f3ce453b0c8104adf4c0f9f7d6acb763bfea391f03f37edd3aa1b7e8286aa0e59c4228a48563911a2a26fdb14bda53430a253370868fa090b2273ed2064c44209bed8f6c3ceebe2f5998bdc6659cfd7a9d2ef011628e0596ef79d8b7a75bf44f8804024929a8b5a11fcd7f4befa2d79af627b19b30d4fe8eab5aa97bd7ce119194dc0bb5a9bfc7dc2496fc134f052370f39ebfa4d9561d57f7bd729627c1abf0264c464df154b0c8a6896738f053f76cd3b9ecff60f3a7b572bd364007e9f125f8faf7967c9fc4daad357cd5a27edd662d0acc21bf0db941dc37c330bd69cc213d83a1cbd7b4bc862aafd3f8e4f8b48e4e293d",
-    "strategies": [
-      "jwt",
-      "local"
-    ],
-    "path": "/authentication",
-    "service": "users",
-    "jwt": {
-      "header": {
-        "typ": "access"
-      },
-      "audience": "https://yourdomain.com",
-      "subject": "anonymous",
-      "issuer": "feathers",
-      "algorithm": "HS256",
-      "expiresIn": "1d"
-    },
-    "local": {
-      "entity": "user",
-      "usernameField": "email",
-      "passwordField": "password"
-    }
-  }
+  "host": "audrey-mum-app.feathersjs.com",
+  "port": "PORT"
 }
