@@ -38,6 +38,7 @@ app.use('/', express.static(app.get('public')));
 app.configure(express.rest());
 app.configure(socketio((function (io) {
   io.on('connection', function (socket) {
+    console.log('==========Inside App.js===========',socket);
     socket.emit('news', { text: 'A client connected!' });
     socket.on('my other event', function (data) {
       console.log('==========Inside App.js===========', data);
