@@ -15,7 +15,7 @@ module.exports = function(app) {
     // connection can be undefined if there is no
     // real-time connection, e.g. when logging in via REST
     if (authResult.accessToken !== undefined ){
-      console.log('=========Hulala, I got here================');
+      console.log('=========Hulala, I got here================',connection);
       
     }
     if(connection) {
