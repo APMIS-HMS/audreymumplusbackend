@@ -27,7 +27,6 @@ module.exports = function (app) {
       create: [
         context => {
           context.result.user = context.params.user;
-
           // Don't expose sensitive information.
           delete context.result.user.password;
         }

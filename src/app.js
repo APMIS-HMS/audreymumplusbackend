@@ -36,17 +36,7 @@ app.use('/', express.static(app.get('public')));
 
 // Set up Plugins and providers
 app.configure(express.rest());
-app.configure(socketio());
-
-app.configure(mongoose);
-
-// Configure other middleware (see `middleware/index.js`)
-app.configure(middleware);
-app.configure(authentication);
-// Set up our services (see `services/index.js`)
-app.configure(services);
-// Set up event channels (see channels.js)
-app.configure(channels, (function (io) {
+app.configure(socketio((function (io) {
   io.on('connection', function (socket) {
     socket.emit('news', { text: 'A client connected!' });
     socket.on('my other event', function (data) {
@@ -59,7 +49,17 @@ app.configure(channels, (function (io) {
     socket.feathers.referrer = socket.request.referrer;
     next();
   });
-}));
+})));
+
+app.configure(mongoose);
+
+// Configure other middleware (see `middleware/index.js`)
+app.configure(middleware);
+app.configure(authentication);
+// Set up our services (see `services/index.js`)
+app.configure(services);
+// Set up event channels (see channels.js)
+app.configure(channels);
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());
 app.use(express.errorHandler({ logger }));
