@@ -15,7 +15,11 @@ module.exports = function(app) {
     if(connection) {
       // Obtain the logged in user from the connection
       // const user = connection.user;
-      
+      const user = connection.user;
+
+      authResult.emit('news',user.firstName);
+
+      connection.emit('news1',user.firstName);
       // The connection is no longer anonymous, remove it
       app.channel('anonymous').leave(connection);
 
@@ -58,4 +62,29 @@ module.exports = function(app) {
   //     app.channel(`emails/${data.recipientEmail}`)
   //   ];
   // });
+
+
+  app.service('chat').publish((data) => {
+    return app.channel(data);
+  });
+
+  app.service('journal').publish((data) => {
+    return app.channel(data);
+  });
+
+  app.service('pack-application').publish((data) => {
+    return app.channel(data);
+  });
+
+  app.service('users').publish((data) => {
+    return app.channel(data);
+  });
+
+  app.service('broadcast').publish((data) => {
+    return app.channel(data);
+  });
+
+  app.service('dev-milestone').publish((data) => {
+    return app.channel(data._id);
+  });
 };
