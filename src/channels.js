@@ -16,14 +16,13 @@ module.exports = function(app) {
     // real-time connection, e.g. when logging in via REST
     if (authResult.accessToken !== undefined ){
       console.log('=========Hulala, I got here================');
-      app.channel('connect');
+      
     }
-    if(connection) {
+    if(connection.connected) {
+      console.log('=========connection succesfull================');
       // Obtain the logged in user from the connection
       // const user = connection.user;
       const user = connection.user;
-
-      authResult.emit('news',user.firstName);
 
       connection.emit('news1',user.firstName);
       // The connection is no longer anonymous, remove it
@@ -43,6 +42,8 @@ module.exports = function(app) {
       // Easily organize users by email and userid for things like messaging
       // app.channel(`emails/${user.email}`).join(channel);
       // app.channel(`userIds/$(user.id}`).join(channel);
+    }else{
+      console.log('=========connection failed!================');
     }
   });
 
