@@ -16,7 +16,16 @@ module.exports = function (app) {
   app.use('/users', createService(options));
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('users');
+  const service = app.service('users').hooks({
+    before: {
+      remove(context) {
+        // check for if(context.params.provider) to prevent any external call
+        if(context.params.provider === 'socketio') {
+          throw new Error('You can not delete a user via Socket.io');
+        }
+      }
+    }
+  });
 
   service.hooks(hooks);
 };
