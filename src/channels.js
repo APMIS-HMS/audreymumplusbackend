@@ -18,7 +18,7 @@ module.exports = function(app) {
       console.log('=========Hulala, I got here================');
       
     }
-    if(connection.connected) {
+    if(connection) {
       console.log('=========connection succesfull================');
       // Obtain the logged in user from the connection
       // const user = connection.user;
@@ -42,8 +42,6 @@ module.exports = function(app) {
       // Easily organize users by email and userid for things like messaging
       // app.channel(`emails/${user.email}`).join(channel);
       // app.channel(`userIds/$(user.id}`).join(channel);
-    }else{
-      console.log('=========connection failed!================');
     }
   });
 
