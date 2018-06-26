@@ -46,8 +46,20 @@ app.configure(authentication);
 // Set up our services (see `services/index.js`)
 app.configure(services);
 // Set up event channels (see channels.js)
-app.configure(channels);
-
+app.configure(channels, (function (io) {
+  io.on('connection', function (socket) {
+    socket.emit('news', { text: 'A client connected!' });
+    socket.on('my other event', function (data) {
+      console.log('==========Inside App.js===========', data);
+    });
+  });
+  // Registering Socket.io middleware
+  io.use(function (socket, next) {
+    // Exposing a request property to services and hooks
+    socket.feathers.referrer = socket.request.referrer;
+    next();
+  });
+}));
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());
 app.use(express.errorHandler({ logger }));

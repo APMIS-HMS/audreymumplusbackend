@@ -9,8 +9,6 @@ module.exports = function(app) {
 
     console.log('connection\n ====',connection.provider);
     app.channel('anonymous').join(connection);
-
-    console.log('app.channels\n ==++++++==',app.channel('anonymous'));
   });
 
   app.on('login', (authResult, { connection }) => {
