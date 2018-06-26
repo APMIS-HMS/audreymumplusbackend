@@ -51,7 +51,7 @@ app.configure(socketio((function (io) {
   });
 })));
 
-app.service('').hooks({
+app.service('users').hooks({
   before: {
     remove(context) {
       // check for if(context.params.provider) to prevent any external call
