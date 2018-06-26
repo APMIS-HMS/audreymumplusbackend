@@ -82,9 +82,9 @@ module.exports = function(app) {
     return app.channel(data);
   });
 
-  // app.service('users').publish((data) => {
-  //   return app.channel(data);
-  // });
+  app.service('users').publish((data) => {
+    return app.channel(data);
+  });
 
   app.service('broadcast').publish((data) => {
     return app.channel(data);
