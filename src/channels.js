@@ -7,7 +7,7 @@ module.exports = function(app) {
   app.on('connection', connection => {
     // On a new real-time connection, add it to the anonymous channel
 
-    console.log('connection\n ====',connection);
+    console.log('connection\n ====',connection.provider);
     app.channel('anonymous').join(connection);
 
     console.log('app.channels\n ==++++++==',app.channel('anonymous'));
@@ -16,10 +16,10 @@ module.exports = function(app) {
   app.on('login', (authResult, { connection }) => {
     // connection can be undefined if there is no
     // real-time connection, e.g. when logging in via REST
-
-    console.log('connection\n ==****==',connection);
-
-    console.log('authResult\n ====',authResult);
+    if (authResult.accessToken !== undefined ){
+      console.log('=========Hulala, I got here================');
+      app.channel('connect');
+    }
     if(connection) {
       // Obtain the logged in user from the connection
       // const user = connection.user;
@@ -84,9 +84,9 @@ module.exports = function(app) {
     return app.channel(data);
   });
 
-  app.service('users').publish((data) => {
-    return app.channel(data);
-  });
+  // app.service('users').publish((data) => {
+  //   return app.channel(data);
+  // });
 
   app.service('broadcast').publish((data) => {
     return app.channel(data);
