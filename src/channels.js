@@ -1,20 +1,22 @@
 const socketio = require('@feathersjs/socketio');
 module.exports = function (app) {
 
-  app.configure(socketio((function (io) {
-    io.on('connection', function (socket) {
-      socket.emit('news', { text: 'A client connected!' });
-      socket.on('my other event', function (data) {
-        console.log('==========Inside App.js===========\n', data);
+  app.configure(socketio({
+    path:'/audrey'
+  },(function (io) {
+      io.on('connection', function (socket) {
+        socket.emit('news', { text: 'A client connected!' });
+        socket.on('my other event', function (data) {
+          console.log('==========Inside App.js===========\n', data);
+        });
       });
-    });
-    // Registering Socket.io middleware
-    io.use(function (socket, next) {
+      // Registering Socket.io middleware
+      io.use(function (socket, next) {
       // Exposing a request property to services and hooks
-      socket.feathers.referrer = socket.request.referrer;
-      next();
-    });
-  })));
+        socket.feathers.referrer = socket.request.referrer;
+        next();
+      });
+    })));
 
   if (typeof app.channel !== 'function') {
     // If no real-time functionality has been configured just return
@@ -106,6 +108,17 @@ module.exports = function (app) {
     //     return app.channel(context.params.query.facilityId);
     //   }
     // }
+  });
+
+  app.service('users').hooks({
+    before: {
+      remove(context) {
+        // check for if(context.params.provider) to prevent any external call
+        if(context.params.provider === 'socketio') {
+          throw new Error('You can not delete a user via Socket.io');
+        }
+      }
+    }
   });
 
   app.service('broadcast').publish((data) => {
