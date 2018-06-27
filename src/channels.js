@@ -16,7 +16,9 @@ module.exports = function(app) {
     // real-time connection, e.g. when logging in via REST
     if (authResult.accessToken !== undefined ){
       console.log('=========Hulala, I got here================',connection);
-      
+      app.on('connection',connect=>{
+        console.log('=========Trying to initialise connection================',connect);
+      });
     }
     if(connection) {
       console.log('=========connection succesfull================');
