@@ -15,11 +15,13 @@ module.exports = function (app) {
     // connection can be undefined if there is no
     // real-time connection, e.g. when logging in via REST
     if (authResult.accessToken !== undefined) {
-      console.log('=========Hulala, I got here================', connection);
+      console.log('=========Hulala, I got here================');
       app.on('connection', connect => {
-        const user = connect.user;
-        console.log('=========Trying to initialise connection================', user);
+        console.log('=========Trying to initialise connection================', connect);
         app.channel('forum').join(connect);
+
+        console.log('=========app.channel***================', app.channel);
+        
       });
 
       app.use(function(socket, next){
