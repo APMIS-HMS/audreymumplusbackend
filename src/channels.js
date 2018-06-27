@@ -88,7 +88,7 @@ module.exports = function (app) {
   app.service('users').publish((data, context) => {
 
     console.log('=======================context=======================\n', context);
-    console.log('\n=======================context=======================\n', data);
+    console.log('\n=======================Data yeah!=======================\n', data);
     // if (context.params.query !== undefined) {
     //   if (context.params.query !== undefined) {
     //     return app.channel(context.params.query.facilityId);
