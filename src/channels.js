@@ -74,14 +74,17 @@ module.exports = function (app) {
 
 
   app.service('chat').publish((data) => {
+    console.log('=======================Chat=======================\n', data);
     return app.channel(data);
   });
 
   app.service('journal').publish((data) => {
+    console.log('=======================Journal=======================\n', data);
     return app.channel(data);
   });
 
   app.service('pack-application').publish((data) => {
+    console.log('=======================Pack App=======================\n', data);
     return app.channel(data);
   });
 
@@ -97,10 +100,12 @@ module.exports = function (app) {
   });
 
   app.service('broadcast').publish((data) => {
+    console.log('=======================Broadcast=======================\n', data);
     return app.channel(data);
   });
 
   app.service('dev-milestone').publish((data) => {
+    console.log('=======================Mile Stone=======================\n', data);
     return app.channel(data._id);
   });
 };
