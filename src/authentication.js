@@ -27,9 +27,6 @@ module.exports = function (app) {
       create: [
         context => {
           context.result.user = context.params.user;
-          app.on('login',function(socket){
-            socket.emit('user',{user:context.result.user});
-          });
           context.response = {message:'login successful'};
 
           // Don't expose sensitive information.
