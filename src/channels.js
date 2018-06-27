@@ -18,6 +18,7 @@ module.exports = function(app) {
       console.log('=========Hulala, I got here================',connection);
       app.on('connection',connect=>{
         console.log('=========Trying to initialise connection================',connect);
+        connection = connect;
       });
     }
     if(connection) {
