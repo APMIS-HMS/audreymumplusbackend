@@ -21,6 +21,13 @@ module.exports = function (app) {
         console.log('=========Trying to initialise connection================', user);
         app.channel('forum').join(connect);
       });
+
+      app.use(function(socket, next){
+        if(socket.connected){
+          console.log('=========CONNECTED================');
+        }
+        next();
+      });
     }
     if (connection) {
       console.log('=========connection succesfull================');
