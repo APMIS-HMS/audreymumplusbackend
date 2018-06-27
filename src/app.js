@@ -46,7 +46,7 @@ app.configure(socketio((function (io) {
   // Registering Socket.io middleware
   io.use(function (socket, next) {
     // Exposing a request property to services and hooks
-    socket.feathers.referrer = socket.request.referrer;
+    socket.feathers.user = socket.request.user;
     next();
   });
 })));
