@@ -45,7 +45,7 @@ app.configure(socketio((function (io) {
   });
   // Registering Socket.io middleware
   io.use(function (socket, next) {
-    console.log('====Got here just know if it gets here anyways====\n',socket.feathers,'\n=========');
+    console.log('====Got here just know if it gets here anyways====\n',socket,'\n=========');
 
     // Exposing a request property to services and hooks
     socket.feathers.user = socket.request.user;
