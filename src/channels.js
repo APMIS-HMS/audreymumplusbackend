@@ -1,7 +1,7 @@
-const socketio = require('@feathersjs/socketio');
+const feathersSocket = require('@feathersjs/socketio');
 module.exports = function (app) {
 
-  app.configure(socketio((function (io) {
+  app.configure(feathersSocket((function (io) {
     io.on('connection', function (socket) {
       socket.emit('news', { text: 'A client connected!' });
       socket.on('my other event', function (data) {
