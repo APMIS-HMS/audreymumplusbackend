@@ -23,8 +23,9 @@ module.exports = function (app) {
       });
 
       app.use(function(socket, next){
+        console.log('=========CONNECTED ================\n',socket);
         if(socket.connected){
-          console.log('=========CONNECTED================');
+          console.log('=========CONNECTED SOCKET================');
         }
         next();
       });
