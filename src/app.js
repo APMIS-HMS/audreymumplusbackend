@@ -39,7 +39,7 @@ app.configure(express.rest());
 app.configure(socketio((function (io) {
   io.on('connection', function (socket) {
     socket.emit('news', { text: 'A client connected!' });
-    socket.on('my other event', function (connected) {
+    socket.on('feedback', function (connected) {
       console.log('==========Inside App.js===========', connected);
     });
   });
@@ -51,7 +51,6 @@ app.configure(socketio((function (io) {
   });
 })));
 
-app.use(socketio());
 app.configure(mongoose);
 
 // Configure other middleware (see `middleware/index.js`)
