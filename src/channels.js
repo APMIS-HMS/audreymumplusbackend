@@ -1,22 +1,5 @@
-const feathersSocket = require('@feathersjs/socketio');
-module.exports = function (app) {
-
-  app.configure(feathersSocket((function (io) {
-    io.on('connection', function (socket) {
-      socket.emit('news', { text: 'A client connected!' });
-      socket.on('my other event', function (data) {
-        console.log('==========Inside App.js===========\n', data);
-      });
-    });
-    // Registering Socket.io middleware
-    io.use(function (socket, next) {
-      // Exposing a request property to services and hooks
-      socket.feathers.referrer = socket.request.referrer;
-      next();
-    });
-  })));
-
-  if (typeof app.channel !== 'function') {
+module.exports = function(app) {
+  if(typeof app.channel !== 'function') {
     // If no real-time functionality has been configured just return
     return;
   }
@@ -31,16 +14,16 @@ module.exports = function (app) {
   app.on('login', (authResult, { connection }) => {
     // connection can be undefined if there is no
     // real-time connection, e.g. when logging in via REST
-    if (authResult.accessToken !== undefined) {
-      console.log('=========Hulala, I got here================', connection);
-
+    if (authResult.accessToken !== undefined ){
+      console.log('=========Hulala, I got here================',connection);
+      
     }
-    if (connection) {
+    if(connection) {
       // Obtain the logged in user from the connection
       // const user = connection.user;
       const user = connection.user;
 
-      connection.emit('news1', user.firstName);
+      connection.emit('news1',user.firstName);
       // The connection is no longer anonymous, remove it
       app.channel('anonymous').leave(connection);
 
@@ -48,13 +31,13 @@ module.exports = function (app) {
       app.channel('authenticated').join(connection);
 
       // Channels can be named anything and joined on any condition 
-
+      
       // E.g. to send real-time events only to admins use
       // if(user.isAdmin) { app.channel('admins').join(connection); }
 
       // If the user has joined e.g. chat rooms
       // if(Array.isArray(user.rooms)) user.rooms.forEach(room => app.channel(`rooms/${room.id}`).join(channel));
-
+      
       // Easily organize users by email and userid for things like messaging
       // app.channel(`emails/${user.email}`).join(channel);
       // app.channel(`userIds/$(user.id}`).join(channel);
@@ -75,7 +58,7 @@ module.exports = function (app) {
   // Here you can also add service specific event publishers
   // e.g. the publish the `users` service `created` event to the `admins` channel
   // app.service('users').publish('created', () => app.channel('admins'));
-
+  
   // With the userid and email organization from above you can easily select involved users
   // app.service('messages').publish(() => {
   //   return [
@@ -97,26 +80,15 @@ module.exports = function (app) {
     return app.channel(data);
   });
 
-  app.service('users').publish((data, context) => {
+  app.service('users').publish((data,context) => {
 
-    console.log('=======================context=======================\n', context);
-    console.log('\n=======================context=======================\n', data);
+    console.log('=======================context=======================\n',context);
+    console.log('\n=======================context=======================\n',data);
     // if (context.params.query !== undefined) {
     //   if (context.params.query !== undefined) {
     //     return app.channel(context.params.query.facilityId);
     //   }
     // }
-  });
-
-  app.service('users').hooks({
-    before: {
-      remove(context) {
-        // check for if(context.params.provider) to prevent any external call
-        if(context.params.provider === 'socketio') {
-          throw new Error('You can not delete a user via Socket.io');
-        }
-      }
-    }
   });
 
   app.service('broadcast').publish((data) => {
