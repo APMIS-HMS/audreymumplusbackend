@@ -36,7 +36,20 @@ app.use('/', express.static(app.get('public')));
 
 // Set up Plugins and providers
 app.configure(express.rest());
-app.configure(socketio());
+app.configure(socketio((function (io) {
+  io.on('connection', function (socket) {
+    socket.emit('news', { text: 'A client connected!' });
+    socket.on('my other event', function (connected) {
+      console.log('==========Inside App.js===========', connected);
+    });
+  });
+  // Registering Socket.io middleware
+  io.use(function (socket, next) {
+    // Exposing a request property to services and hooks
+    socket.feathers.referrer = socket.request.referrer;
+    next();
+  });
+})));
 
 app.use(socketio());
 app.configure(mongoose);
