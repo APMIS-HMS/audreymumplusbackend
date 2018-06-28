@@ -20,9 +20,7 @@ const mongoose = require('./mongoose');
 
 const authentication = require('./authentication');
 
-//const app = express(feathers());
-
-const app = socketio(feathers());
+const app = express(feathers());
 
 // Load app configuration
 app.configure(configuration());
