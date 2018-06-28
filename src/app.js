@@ -20,7 +20,9 @@ const mongoose = require('./mongoose');
 
 const authentication = require('./authentication');
 
-const app = express(feathers());
+//const app = express(feathers());
+
+const app = socketio(feathers());
 
 // Load app configuration
 app.configure(configuration());
@@ -41,7 +43,7 @@ app.configure(socketio((function (io) {
     console.log('==========Inside App.js view socket===========', socket);
     socket.emit('news', { text: 'A client connected!' });
     socket.on('feedback', function (connected) {
-      console.log('==========Inside App.js===========', connected);
+      console.log('==========connected===========', connected);
     });
   });
   // Registering Socket.io middleware
