@@ -32,7 +32,7 @@ class Service {
     console.log('===================Got here==========================');
     const weeklyProgrssService = this.app.service('weekly-progres');
     let patchProgress;
-    let weeklyUpdate;
+    let weeklyUpdate = {};
     try {
       const getProgress = await weeklyProgrssService.get({ _id: data.id });
       console.log('============Thanks==============\n', getProgress);
@@ -46,8 +46,8 @@ class Service {
         console.log('=====================progress from DB========================', progress[0].week);
         //if (week === progress[0].week) {
         console.log('=====================Week is picked========================');
-        weeklyUpdate = progress[0].data;
-        weeklyUpdate.data = weeklyUpdate.push(weekData);
+        weeklyUpdate.data = progress[0].data;
+        weeklyUpdate.data.push(weekData);
         console.log('=========weeklyUpdate========================\n',weeklyUpdate);
         patchProgress = await weeklyProgrssService.patch(weeklyUpdate);
         console.log('==================patchProgress=========================\n', patchProgress);
