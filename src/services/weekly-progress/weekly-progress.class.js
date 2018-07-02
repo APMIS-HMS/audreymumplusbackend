@@ -38,13 +38,13 @@ class Service {
       console.log('============Thanks==============\n', getProgress);
       if (getProgress._id !== undefined) {
         console.log('============I am in==============\n');
-        const week = data.weeks.week;
+        const week = data.weeks[0].week;
         console.log('=====================Week Sent========================', week);
         //actualWeek = getProgress.weeks;
         progress = JSON.parse(getProgress).weeks;
         const testData = JSON.parse(progress);
         console.log('=====================progress========================', testData.data);
-        if (week === progress.week) {
+        if (week === progress[0].week) {
           console.log('=====================Week is picked========================');
           //progress.push(data);
           patchProgress = await weeklyProgrssService.patch(progress);
