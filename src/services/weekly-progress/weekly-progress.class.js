@@ -43,7 +43,8 @@ class Service {
         progress = getProgress.weeks;
         console.log('=====================progress========================', progress.data);
         if (week === progress.week) {
-          progress.push(data);
+          console.log('=====================Week is picked========================');
+          //progress.push(data);
           patchProgress = await weeklyProgrssService.patch(progress);
           console.log('==================patchProgress=========================\n', patchProgress);
         }
