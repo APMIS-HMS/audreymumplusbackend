@@ -52,7 +52,7 @@ class Service {
           weeklyUpdate.data.push(element);
         });
 
-        data.data.array.forEach(element => {
+        data.data.forEach(element => {
           weeklyUpdate.data.push(element);
         });
         //weeklyUpdate.data = progress[0].data;
