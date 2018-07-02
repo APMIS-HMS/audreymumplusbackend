@@ -34,18 +34,20 @@ class Service {
     let patchProgress;
     let actualWeek;
     try {
-      const getProgress = await weeklyProgrssService.get({_id:data.id});
+      const getProgress = await weeklyProgrssService.get({ _id: data.id });
       console.log('============Thanks==============\n', getProgress);
       if (getProgress._id !== undefined) {
         console.log('============I am in==============\n');
-        //const week = data.weeks.week;
+        const week = data.weeks.week;
         //actualWeek = getProgress.weeks;
         progress = getProgress.weeks;
-        console.log('=====================progress========================',progress);
-        // if (week === )
-        progress.push(data);
-        patchProgress = await weeklyProgrssService.patch(progress);
-        console.log('==================patchProgress=========================\n', patchProgress);
+        console.log('=====================progress========================', progress.data);
+        if (week === progress.week) {
+          progress.push(data);
+          patchProgress = await weeklyProgrssService.patch(progress);
+          console.log('==================patchProgress=========================\n', patchProgress);
+        }
+
       }
       return jsend(patchProgress);
     } catch (error) {
