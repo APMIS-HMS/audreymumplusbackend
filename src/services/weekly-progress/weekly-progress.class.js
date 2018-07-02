@@ -58,7 +58,8 @@ class Service {
         //weeklyUpdate.data = progress[0].data;
         //weeklyUpdate.data.push(weekData);
         console.log('=========weeklyUpdate========================\n',weeklyUpdate);
-        patchProgress = await weeklyProgrssService.patch(weeklyUpdate);
+        data.weeks[0].data = weeklyUpdate;
+        patchProgress = await weeklyProgrssService.patch(data);
         console.log('==================patchProgress=========================\n', patchProgress);
         //}
       }
