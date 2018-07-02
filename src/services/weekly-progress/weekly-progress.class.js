@@ -39,9 +39,11 @@ class Service {
       if (getProgress._id !== undefined) {
         console.log('============I am in==============\n');
         const week = data.weeks.week;
+        console.log('=====================Week Sent========================', week);
         //actualWeek = getProgress.weeks;
-        progress = getProgress.weeks;
-        console.log('=====================progress========================', progress.data);
+        progress = JSON.parse(getProgress).weeks;
+        const testData = JSON.parse(progress);
+        console.log('=====================progress========================', testData.data);
         if (week === progress.week) {
           console.log('=====================Week is picked========================');
           //progress.push(data);
