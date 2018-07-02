@@ -44,15 +44,15 @@ class Service {
         const weekData = data.weeks[0].data;
         console.log('=====================Week Sent========================', week);
         progress = getProgress.weeks;
+        const progData = progress[0].data;
         console.log('=====================progress========================', progress[0].data);
         console.log('=====================progress from DB========================', progress[0].week);
         //if (week === progress[0].week) {
         console.log('=====================Week is picked========================');
-        progress.data.array.forEach(element => {
+        progData.forEach(element => {
           weeklyUpdate.data.push(element);
         });
-
-        data.data.forEach(element => {
+        weekData.forEach(element => {
           weeklyUpdate.data.push(element);
         });
         //weeklyUpdate.data = progress[0].data;
