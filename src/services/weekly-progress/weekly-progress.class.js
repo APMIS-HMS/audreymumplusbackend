@@ -28,7 +28,7 @@ class Service {
   }
 
   async patch(id, data, params) {
-    let progress = [];
+    let progress;
     console.log('===================Got here==========================');
     const weeklyProgrssService = this.app.service('weekly-progres');
     let patchProgress;
@@ -40,7 +40,7 @@ class Service {
         console.log('============I am in==============\n');
         //const week = data.weeks.week;
         //actualWeek = getProgress.weeks;
-        progress = getProgress.weeks.map(i => getProgress.weeks(i));
+        progress = getProgress.weeks;
         console.log('=====================progress========================',progress);
         // if (week === )
         progress.push(data);
