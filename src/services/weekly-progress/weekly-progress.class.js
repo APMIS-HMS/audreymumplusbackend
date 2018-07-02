@@ -34,7 +34,7 @@ class Service {
     let patchProgress;
     let actualWeek;
     try {
-      const getProgress = await weeklyProgrssService.get({_id:id});
+      const getProgress = await weeklyProgrssService.get({_id:data.id});
       console.log('============Thanks==============\n', getProgress);
       if (getProgress._id != undefined) {
         const week = data.weeks.week;
