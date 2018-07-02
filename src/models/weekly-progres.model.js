@@ -9,7 +9,7 @@ module.exports = function (app) {
     weeks: [{
       week:{ type: Number, required: true },
       data:[{
-        day:{type: String, required: true},
+        day:{type: Number, required: true},
         title:{type: String, required: true},
         intro:{type: String, required: true},
         body:{type: String, required: true}

@@ -1,15 +1,14 @@
 // Initializes the `weekly-progress` service on path `/weekly-progress`
-const createService = require('feathers-mongoose');
-const createModel = require('../../models/weekly-progress.model');
+const createService = require('./weekly-progress.class.js');
 const hooks = require('./weekly-progress.hooks');
 
 module.exports = function (app) {
-  const Model = createModel(app);
+  
   const paginate = app.get('paginate');
 
   const options = {
-    Model,
-    paginate
+    paginate,
+    app:app
   };
 
   // Initialize our service with any options it requires
