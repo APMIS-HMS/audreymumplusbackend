@@ -7,6 +7,7 @@ const broadcast = require('./broadcast/broadcast.service.js');
 const forum = require('./forum/forum.service.js');
 const users = require('./users/users.service.js');
 const savePerson = require('./save-person/save-person.service.js');
+const weeklyProgress = require('./weekly-progress/weekly-progress.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(people);
@@ -18,4 +19,5 @@ module.exports = function (app) {
   app.configure(forum);
   app.configure(users);
   app.configure(savePerson);
+  app.configure(weeklyProgress);
 };
