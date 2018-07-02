@@ -48,6 +48,7 @@ class Service {
         console.log('=====================Week is picked========================');
         weeklyUpdate = progress[0].data;
         weeklyUpdate.push(weekData);
+        console.log('=========weeklyUpdate========================\n',weeklyUpdate);
         patchProgress = await weeklyProgrssService.patch(weeklyUpdate);
         console.log('==================patchProgress=========================\n', patchProgress);
         //}
