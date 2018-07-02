@@ -43,14 +43,14 @@ class Service {
         console.log('=====================Week Sent========================', week);
         progress = getProgress.weeks;
         console.log('=====================progress========================', progress[0].data);
-        console.log('=====================progress========================', progress[0].week);
-        if (week === progress[0].week) {
-          console.log('=====================Week is picked========================');
-          weeklyUpdate = progress[0].data;
-          weeklyUpdate.push(weekData);
-          patchProgress = await weeklyProgrssService.patch(weeklyUpdate);
-          console.log('==================patchProgress=========================\n', patchProgress);
-        }
+        console.log('=====================progress from DB========================', progress[0].week);
+        //if (week === progress[0].week) {
+        console.log('=====================Week is picked========================');
+        weeklyUpdate = progress[0].data;
+        weeklyUpdate.push(weekData);
+        patchProgress = await weeklyProgrssService.patch(weeklyUpdate);
+        console.log('==================patchProgress=========================\n', patchProgress);
+        //}
 
       }
       return jsend(patchProgress);
