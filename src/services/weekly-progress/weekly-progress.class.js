@@ -32,22 +32,22 @@ class Service {
     console.log('===================Got here==========================');
     const weeklyProgrssService = this.app.service('weekly-progres');
     let patchProgress;
-    let actualWeek;
+    let weeklyUpdate;
     try {
       const getProgress = await weeklyProgrssService.get({ _id: data.id });
       console.log('============Thanks==============\n', getProgress);
       if (getProgress._id !== undefined) {
         console.log('============I am in==============\n');
         const week = data.weeks[0].week;
+        const weekData = data.weeks[0].data;
         console.log('=====================Week Sent========================', week);
-        //actualWeek = getProgress.weeks;
         progress = getProgress.weeks;
-        //const testData = JSON.parse(progress);
         console.log('=====================progress========================', progress[0].data);
         if (week === progress[0].week) {
           console.log('=====================Week is picked========================');
-          //progress.push(data);
-          patchProgress = await weeklyProgrssService.patch(progress);
+          weeklyUpdate = progress[0].data;
+          weeklyUpdate.push(weekData);
+          patchProgress = await weeklyProgrssService.patch(weeklyUpdate);
           console.log('==================patchProgress=========================\n', patchProgress);
         }
 
