@@ -41,9 +41,9 @@ class Service {
         const week = data.weeks[0].week;
         console.log('=====================Week Sent========================', week);
         //actualWeek = getProgress.weeks;
-        progress = JSON.parse(getProgress).weeks;
-        const testData = JSON.parse(progress);
-        console.log('=====================progress========================', testData.data);
+        progress = getProgress.weeks;
+        //const testData = JSON.parse(progress);
+        console.log('=====================progress========================', progress[0].data);
         if (week === progress[0].week) {
           console.log('=====================Week is picked========================');
           //progress.push(data);
