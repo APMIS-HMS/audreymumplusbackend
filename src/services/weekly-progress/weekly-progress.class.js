@@ -16,57 +16,39 @@ class Service {
   }
 
   async create(data, params) {
-    if (Array.isArray(data)) {
-      return Promise.all(data.map(current => this.create(current, params)));
+    const weeklyProgrssService = this.app.service('weekly-progres');
+    try {
+      const addProgress = await weeklyProgrssService.create(data);
+      if(addProgress._id !== undefined){
+        return jsend.success(addProgress);
+      }else{
+        return jsend.error('Create process');
+      }
+    } catch (error) {
+      return jsend.error(error);
     }
-
-    return data;
   }
 
   async update(id, data, params) {
-    return data;
+    const weeklyProgrssService = this.app.service('weekly-progres');
+    let patchProgress;
+    const weeklyUpdateData = data.data;
+    try {
+      let getProgress = await weeklyProgrssService.find({query:{week:data.week}});
+      getProgress = getProgress.data[0];
+      if (getProgress._id !== undefined) {
+        getProgress.data.push(weeklyUpdateData);
+        patchProgress = await weeklyProgrssService.patch(getProgress._id,getProgress,{});
+        return jsend.success(patchProgress);
+      }
+    } catch (error) {
+      return jsend.error(error);
+    }
   }
 
   async patch(id, data, params) {
-    let progress;
-    console.log('===================Got here==========================');
-    const weeklyProgrssService = this.app.service('weekly-progres');
-    let patchProgress;
-    let weeklyUpdate = {
-      data:[]
-    };
-    try {
-      const getProgress = await weeklyProgrssService.get({ _id: data.id });
-      console.log('============Thanks==============\n', getProgress);
-      if (getProgress._id !== undefined) {
-        console.log('============I am in==============\n');
-        const week = data.weeks[0].week;
-        const weekData = data.weeks[0].data;
-        console.log('=====================Week Sent========================', week);
-        progress = getProgress.weeks;
-        const progData = progress[0].data;
-        console.log('=====================progress========================', progress[0].data);
-        console.log('=====================progress from DB========================', progress[0].week);
-        //if (week === progress[0].week) {
-        console.log('=====================Week is picked========================');
-        progData.forEach(element => {
-          weeklyUpdate.data.push(element);
-        });
-        weekData.forEach(element => {
-          weeklyUpdate.data.push(element);
-        });
-        //weeklyUpdate.data = progress[0].data;
-        //weeklyUpdate.data.push(weekData);
-        console.log('=========weeklyUpdate========================\n',weeklyUpdate);
-        data.weeks[0].data = weeklyUpdate;
-        patchProgress = await weeklyProgrssService.patch(data);
-        console.log('==================patchProgress=========================\n', patchProgress);
-        //}
-      }
-      return jsend(patchProgress);
-    } catch (error) {
-      return jsend(error);
-    }
+
+    return data;
   }
 
   async remove(id, params) {
