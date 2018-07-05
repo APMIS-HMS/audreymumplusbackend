@@ -19,15 +19,3 @@ module.exports = function (app) {
 
   return mongooseClient.model('weeklyProgress', weeklyProgress);
 };
-
-// weeks: [
-//   {
-//     week: { type: Number, required: true },
-//     data: [{
-//       day: { type: Number, required: true },
-//       title: { type: String, required: true },
-//       intro: { type: String, required: true },
-//       body: { type: String, required: true }
-//     }]
-//   }
-// ]

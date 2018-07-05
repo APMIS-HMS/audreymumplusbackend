@@ -23,6 +23,17 @@ class Service {
     const peopleService = this.app.service('people');
     const userService = this.app.service('users');
 
+    const email = data.person.email;
+
+    try {
+      const getUser = await userService.find({query:{email:email}});
+      if(getUser.data[0]._id !== undefined){
+        return jsend.error('User email already exist');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
     // APMIS  End point
     const url = `${process.env.APMIS_PERSON}/save-person`;
     const person = data;
@@ -32,10 +43,8 @@ class Service {
 
     try {
       const makeRequest = await this.personOptions(url, person);
-      
       // Convert callback from APMIS (makeRquest) to JSON
       const parseRequest = JSON.parse(makeRequest);
-
       // Verify if the request to APMIS was successful
       if (parseRequest._id === undefined) {
         // Request failed! Terminate process
@@ -70,7 +79,7 @@ class Service {
             code: error.message.code,
             message: error.message.message
           };
-          return jsend.error(res);
+          return jsend.error('Error Error');
         }
 
         //Request Successfully initiated. Proceed. Initialise variables
@@ -90,7 +99,7 @@ class Service {
             code: error.message.code,
             message: error.message.message
           };
-          return jsend.error(res);
+          return jsend.error('User could not be saved');
         }
 
         
@@ -112,14 +121,18 @@ class Service {
       }
     } catch (error) {
       //Initialise error response message
-      res = {
-        status: error.status,
-        name: error.message.name,
-        code: error.message.code,
-        message: error.message.message
-      };
+      res = JSON.stringify(error, null, 2);
+      const response = JSON.parse(res);
+      const errorBody = JSON.parse(response.response.body);
+      
       // Return error response and terminate the process
-      return jsend.error(res);
+      return jsend.error({
+        statusCode: errorBody.code,
+        status: response.message.name,
+        name: errorBody.name,
+        message: errorBody.message,
+        errorClass:errorBody.className
+      });
     }
   }
 

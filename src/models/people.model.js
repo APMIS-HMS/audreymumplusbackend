@@ -14,6 +14,11 @@ module.exports = function (app) {
     dateOfBirth:{type: Date,'default':Date.now, required: true},
     motherMaidenName:{type: String, required: true},
     primaryContactPhoneNo:{type: String, required: true},
+    spousefullname:{type: String, required: false},
+    spousephone:{type: String, required: false},
+    hospitalname:{type: String, required: false},
+    hospitalstate:{type: String, required: false},
+    edd:{type: String, required: false},
     ExpectedDateOfDelivery: { type: Date, 'default':Date.now, required: false },
     noOfPreviousChildren: { type: Number,'default':0, required: false },
     isActive: { type: Boolean, 'default':true, required: false },
@@ -23,6 +28,3 @@ module.exports = function (app) {
 
   return mongooseClient.model('people', people);
 };
-
-
-
