@@ -12,7 +12,8 @@ module.exports = function (app) {
 
     if(connection){
       const user = connection.user;
-      connection.emit('msg',user);
+      //connection.emit('msg',user);
+      console.log('==============User test=============',user);
     }
 
   });
