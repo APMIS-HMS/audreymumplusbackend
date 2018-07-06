@@ -9,31 +9,19 @@ module.exports = function (app) {
 
     //console.log('connection\n ====',connection.provider);
     app.channel('anonymous').join(connection);
+
   });
 
   app.on('login', (authResult, { connection }) => {
     // connection can be undefined if there is no
     // real-time connection, e.g. when logging in via REST
     if (authResult.accessToken !== undefined) {
-      console.log('=========Hulala, I got here================');
       app.on('connection', connect => {
-        console.log('=========Trying to initialise connection================', connect);
         app.channel('forum').join(connect);
-
-        console.log('=========app.channel***================', app.channel);
-        
       });
 
-      app.use(function(socket, next){
-        console.log('=========CONNECTED ================\n',socket);
-        if(socket.connected){
-          console.log('=========CONNECTED SOCKET================');
-        }
-        next();
-      });
     }
     if (connection) {
-      console.log('=========connection succesfull================');
       // Obtain the logged in user from the connection
       // const user = connection.user;
       const user = connection.user;
