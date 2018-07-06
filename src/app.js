@@ -43,6 +43,11 @@ app.configure(socketio((function (io) {
       console.log('==========connected===========', connected);
     });
   });
+
+  app.service('chat').publish('created',(data) => {
+    console.log('=======================Chat=======================\n', data);
+    return app.channel(data.text);
+  });
   // Registering Socket.io middleware
   io.use(function (socket, next) {
     console.log('====Got here just know if it gets here anyways====\n',socket.feathers,'\n=========');
