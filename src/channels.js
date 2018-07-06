@@ -25,6 +25,9 @@ module.exports = function (app) {
       app.on('connection', connect => {
         console.log('===============in connection via rest==============\n',connect);
         app.channel('forum').join(connect);
+        app.on('feedback',function (connected) {
+          console.log('==========Inside channels.js listening on feedbaack===========', connected);
+        });
       });
 
     }
