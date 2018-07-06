@@ -14,6 +14,9 @@ module.exports = function (app) {
       const user = connection.user;
       //connection.emit('msg',user);
       console.log('==============User test=============',user);
+      app.on('feedback',function (connected) {
+        console.log('==========Inside channels.js listening on feedbaack===========', connected);
+      });
     }
 
   });
