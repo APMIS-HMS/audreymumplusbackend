@@ -11,6 +11,7 @@ module.exports = function (app) {
     title:{type: String, required: true},
     firstName:{type: String, required: true},
     lastName:{type: String, required: true},
+    email:{type:String, required: true},
     dateOfBirth:{type: Date,'default':Date.now, required: true},
     motherMaidenName:{type: String, required: true},
     primaryContactPhoneNo:{type: String, required: true},
@@ -21,7 +22,7 @@ module.exports = function (app) {
     edd:{type: String, required: false},
     ExpectedDateOfDelivery: { type: Date, 'default':Date.now, required: false },
     noOfPreviousChildren: { type: Number,'default':0, required: false },
-    isActive: { type: Boolean, 'default':true, required: false },
+    isActive: { type: Boolean, 'default':true, required: false }
   }, {
     timestamps: true
   });

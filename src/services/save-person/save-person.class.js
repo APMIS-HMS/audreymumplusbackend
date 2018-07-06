@@ -59,6 +59,7 @@ class Service {
           title:parseRequest.title,
           firstName:parseRequest.firstName,
           lastName:parseRequest.lastName,
+          email:parseRequest.email,
           dateOfBirth:parseRequest.dateOfBirth,
           motherMaidenName:parseRequest.motherMaidenName,
           primaryContactPhoneNo:parseRequest.primaryContactPhoneNo,
@@ -73,18 +74,22 @@ class Service {
         try {
           peopleRes = await peopleService.create(people);
         } catch (error) {
-          res = {
-            status: error.status,
-            name: error.message.name,
-            code: error.message.code,
-            message: error.message.message
-          };
-          return jsend.error('Error Error');
+          res = JSON.stringify(error, null, 2);
+          const response = JSON.parse(res);
+          const errorBody = JSON.parse(response.response.body);
+          return jsend.error({
+            statusCode: errorBody.code,
+            status: response.message.name,
+            name: errorBody.name,
+            message: errorBody.message,
+            errorClass:errorBody.className
+          });
         }
 
         //Request Successfully initiated. Proceed. Initialise variables
         const user = {
           email: parseRequest.email,
+          personId:parseRequest._id,
           password: data.person.password,
           firstName:parseRequest.firstName,
           lastName:parseRequest.lastName
@@ -93,13 +98,16 @@ class Service {
         try {
           userRes = await userService.create(user);
         } catch (error) {
-          res = {
-            status: error.status,
-            name: error.message.name,
-            code: error.message.code,
-            message: error.message.message
-          };
-          return jsend.error('User could not be saved');
+          res = JSON.stringify(error, null, 2);
+          const response = JSON.parse(res);
+          const errorBody = JSON.parse(response.response.body);
+          return jsend.error({
+            statusCode: errorBody.code,
+            status: response.message.name,
+            name: errorBody.name,
+            message: errorBody.message,
+            errorClass:errorBody.className
+          });
         }
 
         
