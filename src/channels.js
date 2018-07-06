@@ -84,7 +84,7 @@ module.exports = function (app) {
 
 
   app.service('chat').publish('created',(data) => {
-    //console.log('=======================Chat=======================\n', data);
+    console.log('=======================Chat=======================\n', data);
     return app.channel(data.text);
   });
 
