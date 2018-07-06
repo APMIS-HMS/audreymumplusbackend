@@ -10,6 +10,11 @@ module.exports = function (app) {
     //console.log('connection\n ====',connection.provider);
     app.channel('anonymous').join(connection);
 
+    if(connection){
+      const user = connection.user;
+      connection.emit('news',user);
+    }
+
   });
 
   app.on('login', (authResult, { connection }) => {
@@ -17,6 +22,7 @@ module.exports = function (app) {
     // real-time connection, e.g. when logging in via REST
     if (authResult.accessToken !== undefined) {
       app.on('connection', connect => {
+        console.log('===============in connection via rest==============\n',connect);
         app.channel('forum').join(connect);
       });
 
@@ -70,10 +76,14 @@ module.exports = function (app) {
   // });
 
 
-  app.service('chat').publish((data) => {
+  app.service('chat').publish('created',(data) => {
     //console.log('=======================Chat=======================\n', data);
-    return app.channel(data);
+    return app.channel(data.text);
   });
+
+  //   app.service('patients').publish('created', (data) => {
+  //     return app.channel(data.facilityId);
+  // });
 
   app.service('journal').publish((data) => {
     //console.log('=======================Journal=======================\n', data);
