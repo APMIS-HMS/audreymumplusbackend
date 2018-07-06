@@ -12,7 +12,7 @@ module.exports = function (app) {
 
     if(connection){
       const user = connection.user;
-      connection.emit('news',user);
+      connection.emit('msg',user);
     }
 
   });
