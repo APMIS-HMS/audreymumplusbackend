@@ -49,19 +49,16 @@ app.configure(socketio((function (io) {
     });
   });
 
-  app.service('chat').publish('created',(data, context) => {
+  app.service('chat').publish('y',(data, context) => {
     console.log('=======================Chat=======================\n', data);
     io.emit('created',{message:data.text});
-    // const user = context.params.user;
-    // console.log('***************************user***********************\n',user);
-    console.log('=======================Chat context inside app.js=======================\n', context);
+    //const user = context.params.user;
     //return app.publish(app.channel('authenticated'));
     return app.publish(data);
     //return app.channel(data.text);
   });
   // Registering Socket.io middleware
   io.use(function (socket, next) {
-    console.log('=======================Socket in io.use=======================\n', socket);
     // Exposing a request property to services and hooks
     socket.feathers.user = socket.request.user;
     next();
