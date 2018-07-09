@@ -22,6 +22,8 @@ const authentication = require('./authentication');
 
 const app = express(feathers());
 
+
+
 // Load app configuration
 app.configure(configuration());
 // Enable security, CORS, compression, favicon and body parsing
@@ -46,7 +48,7 @@ app.configure(socketio((function (io) {
 
   app.service('chat').publish('created',(data, context) => {
     console.log('=======================Chat=======================\n', data);
-
+    io.emit('created',{message:data.text});
     console.log('=======================Chat context inside app.js=======================\n', context);
     //return app.publish(app.channel('authenticated'));
     return app.publish(data);
