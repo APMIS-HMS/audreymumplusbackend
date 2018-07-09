@@ -39,8 +39,8 @@ app.use('/', express.static(app.get('public')));
 // Set up Plugins and providers
 app.configure(express.rest());
 app.configure(socketio((function (io) {
-  io.on('connection', function (socket,context) {
-    console.log('***************************user***********************\n',context);
+  io.on('connection', function (socket) {
+    console.log('=======================Socket on connection=======================\n', socket);
     socket.emit('news', { text: 'A client connected!' });
     socket.on('feedback', function (connected) {
       console.log('==========connected===========', connected);
@@ -59,8 +59,7 @@ app.configure(socketio((function (io) {
   });
   // Registering Socket.io middleware
   io.use(function (socket, next) {
-    console.log('====Got here just know if it gets here anyways====\n',socket.feathers,'\n=========');
-
+    console.log('=======================Socket in io.use=======================\n', socket);
     // Exposing a request property to services and hooks
     socket.feathers.user = socket.request.user;
     next();
