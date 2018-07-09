@@ -40,10 +40,7 @@ app.use('/', express.static(app.get('public')));
 app.configure(express.rest());
 app.configure(socketio((function (io) {
   io.on('connection', function (socket) {
-    const forumService = app.service('forum');
-    const getForums = forumService.find();
-    console.log('==========connected===========', getForums);
-    socket.emit('forums', { forums: getForums });
+    socket.emit('forums', { text: 'Hey Thad!' });
     socket.on('feedback', function (connected) {
       console.log('==========connected===========', connected);
     });
