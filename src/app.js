@@ -44,8 +44,10 @@ app.configure(socketio((function (io) {
     });
   });
 
-  app.service('chat').publish('created',(data) => {
+  app.service('chat').publish('created',(data, context) => {
     console.log('=======================Chat=======================\n', data);
+
+    console.log('=======================Chat context inside app.js=======================\n', context);
     //return app.publish(app.channel('authenticated'));
     return app.publish(data);
     //return app.channel(data.text);
@@ -57,8 +59,10 @@ app.configure(socketio((function (io) {
     // Exposing a request property to services and hooks
     socket.feathers.user = socket.request.user;
     next();
-  });
-})));
+  }
+  );
+}
+)));
 
 app.configure(mongoose);
 
