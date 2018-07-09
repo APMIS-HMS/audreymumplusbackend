@@ -47,7 +47,7 @@ app.configure(socketio((function (io) {
   app.service('chat').publish('created',(data) => {
     console.log('=======================Chat=======================\n', data);
     //return app.publish(app.channel('authenticated'));
-    return app.publish(data.text);
+    return app.publish(data);
     //return app.channel(data.text);
   });
   // Registering Socket.io middleware
