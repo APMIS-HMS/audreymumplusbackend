@@ -40,11 +40,15 @@ app.use('/', express.static(app.get('public')));
 app.configure(express.rest());
 app.configure(socketio((function (io) {
   io.on('connection', function (socket) {
-    console.log('___****___user____*****___', socket);
+    //console.log('___****___user____*****___', socket);
     socket.emit('forums', { text: 'Hey Thad!' });
     socket.on('feedback', function (connected) {
       console.log('==========connected===========', connected);
     });
+  });
+
+  io.on('user',function(user){
+    console.log('==========**user***===========', user);
   });
 
   app.service('chat').publish('created',(data, context) => {
