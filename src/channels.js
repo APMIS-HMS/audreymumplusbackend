@@ -6,17 +6,12 @@ module.exports = function (app) {
 
   app.on('connection', connection => {
     // On a new real-time connection, add it to the anonymous channel
-    console.log('===============in connection==============\n',connection);
     //console.log('connection\n ====',connection.provider);
     app.channel('anonymous').join(connection);
 
     if(connection){
-      const user = connection.user;
+      // const user = connection.user;
       //connection.emit('msg',user);
-      console.log('==============User test=============',user);
-      app.on('feedback',function (connected) {
-        console.log('==========Inside channels.js listening on feedbaack===========', connected);
-      });
     }
 
   });
@@ -24,22 +19,20 @@ module.exports = function (app) {
   app.on('login', (authResult, { connection }) => {
     // connection can be undefined if there is no
     // real-time connection, e.g. when logging in via REST
-    if (authResult.accessToken !== undefined) {
-      app.on('connection', connect => {
-        console.log('===============in connection via rest==============\n',connect);
-        app.channel('forum').join(connect);
-        app.on('feedback',function (connected) {
-          console.log('==========Inside channels.js listening on feedbaack===========', connected);
-        });
-      });
+    // if (authResult.accessToken !== undefined) {
+    //   app.on('connection', connect => {
+    //     console.log('===============in connection via rest==============\n',connect);
+    //     app.channel('forum').join(connect);
+    //     app.on('feedback',function (connected) {
+    //       console.log('==========Inside channels.js listening on feedbaack===========', connected);
+    //     });
+    //   });
 
-    }
+    // }
     if (connection) {
       // Obtain the logged in user from the connection
       // const user = connection.user;
-      const user = connection.user;
 
-      connection.emit('news1', user.firstName);
       // The connection is no longer anonymous, remove it
       app.channel('anonymous').leave(connection);
 
@@ -83,12 +76,12 @@ module.exports = function (app) {
   // });
 
 
-  app.service('chat').publish('created',(data,context) => {
-    console.log('=======================Chat channel=======================\n', data);
-    console.log('=======================Chat context=======================\n', context);
+  // app.service('chat').publish('created',(data,context) => {
+  //   console.log('=======================Chat channel=======================\n', data);
+  //   console.log('=======================Chat context=======================\n', context);
 
-    return app.channel(data.text);
-  });
+  //   return app.channel(data.text);
+  // });
 
   //   app.service('patients').publish('created', (data) => {
   //     return app.channel(data.facilityId);
@@ -100,14 +93,14 @@ module.exports = function (app) {
   });
 
   app.service('pack-application').publish((data) => {
-    console.log('=======================Pack App=======================\n', data);
+    //console.log('=======================Pack App=======================\n', data);
     return app.channel(data);
   });
 
   app.service('users').publish((data, context) => {
 
-    console.log('=======================context=======================\n', context);
-    console.log('\n=======================Data yeah!=======================\n', data);
+    //console.log('=======================context=======================\n', context);
+    //console.log('\n=======================Data yeah!=======================\n', data);
     // if (context.params.query !== undefined) {
     //   if (context.params.query !== undefined) {
     //     return app.channel(context.params.query.facilityId);
