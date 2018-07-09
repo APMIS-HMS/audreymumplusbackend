@@ -8,7 +8,7 @@ module.exports = function (app) {
   const packApplication = new Schema({
     peopleId: { type: String, required: true },
     transactions: [{
-      isAccepted: { type: String, required: true },
+      isAccepted: { type: String, 'default':false, required: true },
       packageType: { type: String, required: true },
       datetime: { type: String, required: true }
     }],
