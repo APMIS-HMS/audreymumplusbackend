@@ -6,10 +6,8 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const forum = new Schema({
-    chat: [{
-      text: { type: String, required: true },
-      peopleId: { type: String, required: true }
-    }]
+    name:{type: String, unique:true, required:true },
+    chatId:{type:Schema.Types.ObjectId, required:false}
   }, {
     timestamps: true
   });

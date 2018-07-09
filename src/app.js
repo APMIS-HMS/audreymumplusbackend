@@ -39,7 +39,9 @@ app.use('/', express.static(app.get('public')));
 // Set up Plugins and providers
 app.configure(express.rest());
 app.configure(socketio((function (io) {
-  io.on('connection', function (socket) {
+  io.on('connection', function (socket,context) {
+    const user = context.params.user;
+    console.log('***************************user***********************\n',user);
     socket.emit('news', { text: 'A client connected!' });
     socket.on('feedback', function (connected) {
       console.log('==========connected===========', connected);
@@ -49,8 +51,8 @@ app.configure(socketio((function (io) {
   app.service('chat').publish('created',(data, context) => {
     console.log('=======================Chat=======================\n', data);
     io.emit('created',{message:data.text});
-    const user = context.params.user;
-    console.log('***************************user***********************\n',user);
+    // const user = context.params.user;
+    // console.log('***************************user***********************\n',user);
     console.log('=======================Chat context inside app.js=======================\n', context);
     //return app.publish(app.channel('authenticated'));
     return app.publish(data);
