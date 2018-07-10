@@ -45,20 +45,24 @@ app.configure(socketio((function (io) {
     socket.on('feedback', function (connected) {
       console.log('==========connected===========', connected);
     });
-    socket.on('chat',function(user){
+    socket.on('chat', function (user) {
+      const forumService = app.service('chat');
+
+      async const getForums = await forumService.create(user);
       console.log('==========**user***===========', user);
     });
 
+    app.service('chat').publish('created', (data, context) => {
+      socket.broadcast.emit('created', { message: data });
+      //const user = context.params.user;
+      //return app.publish(app.channel('authenticated'));
+      return app.publish(data);
+      //return app.channel(data.text);
+    });
   });
 
- 
-  app.service('chat').publish('created',(data, context) => {
-    io.emit('created',{message:data});
-    //const user = context.params.user;
-    //return app.publish(app.channel('authenticated'));
-    return app.publish(data);
-    //return app.channel(data.text);
-  });
+
+
   // Registering Socket.io middleware
   io.use(function (socket, next) {
     // Exposing a request property to services and hooks
