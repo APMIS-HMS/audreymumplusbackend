@@ -41,14 +41,31 @@ app.configure(express.rest());
 app.configure(socketio((function (io) {
   io.on('connection', function (socket) {
     console.log('___****___user____*****___');
+    socket.on('getForums',function(getForums){
+      console.log('==========getForums===========', getForums);
+      var promise1 = new Promise((resolve, reject) => {
+        const getForums = app.service('forum').find();
+
+        if (getForums.length > 0) {
+          resolve(getForums);
+        } else {
+          reject({message: 'No forums found'});
+        }
+      });
+
+      promise1.then((data) => {
+        socket.emit('getForums', data);
+      }, (error) => {
+        socket.emit('getforums', error);
+      });
+      
+    });
     socket.emit('forums', { text: 'Hey Thad!' });
     socket.on('feedback', function (connected) {
       console.log('==========connected===========', connected);
     });
     socket.on('chat', function (user) {
-      const forumService = app.service('chat');
-
-      async const getForums = await forumService.create(user);
+      app.service('chat').create(user);
       console.log('==========**user***===========', user);
     });
 
