@@ -47,12 +47,12 @@ app.configure(socketio((function (io) {
     });
   });
 
-  io.on('user',function(user){
+  io.on('chat',function(user){
     console.log('==========**user***===========', user);
   });
 
   app.service('chat').publish('created',(data, context) => {
-    //io.emit('created',{message:data});
+    io.emit('created',{message:data});
     //const user = context.params.user;
     //return app.publish(app.channel('authenticated'));
     return app.publish(data);
