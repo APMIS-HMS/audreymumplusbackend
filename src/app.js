@@ -40,26 +40,32 @@ app.use('/', express.static(app.get('public')));
 app.configure(express.rest());
 app.configure(socketio((function (io) {
   io.on('connection', function (socket) {
-    console.log('___****___user____*****___');
+    
     socket.on('getForums',function(getForums){
-      console.log('==========getForums===========', getForums);
-      var promise1 = new Promise((resolve, reject) => {
-        const getForums = app.service('forum').find();
-
-        if (getForums.length > 0) {
-          resolve(getForums);
-        } else {
-          reject({message: 'No forums found'});
-        }
+      new Promise ((resolve) => {
+        const getF = app.service('forum').find();
+        resolve(getF);
+      }).then((forums) => {
+        socket.emit('getForums', forums);
       });
+      
+      // var promise1 = new Promise((resolve, reject) => {
+      //   const getForums = app.service('forum').find();
 
-      promise1.then((data) => {
-        console.log('____)))))forums(((((((_______', data);
-        socket.emit('getForums', data);
-      }, (error) => {
-        console.log('______(((((forums error)))))))_______', error);
-        socket.emit('getforums', error);
-      });
+      //   if (getForums.length > 0) {
+      //     resolve(getForums);
+      //   } else {
+      //     reject({message: 'No forums found'});
+      //   }
+      // });
+
+      // promise1.then((data) => {
+      //   console.log('____)))))forums(((((((_______', data);
+      //   socket.emit('getForums', data);
+      // }, (error) => {
+      //   console.log('______(((((forums error)))))))_______', error);
+      //   socket.emit('getforums', error);
+      // });
       
     });
     socket.emit('forums', { text: 'Hey Thad!' });
