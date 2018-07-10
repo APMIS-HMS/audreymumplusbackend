@@ -63,7 +63,6 @@ app.configure(socketio((function (io) {
     //   console.log('==========connected===========', connected);
     // });
     socket.on('chat', function (user) {
-
       app.service('chat').create(user);
       console.log('==========**user***===========', user);
     });
