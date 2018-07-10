@@ -54,8 +54,10 @@ app.configure(socketio((function (io) {
       });
 
       promise1.then((data) => {
+        console.log('____)))))forums(((((((_______', data);
         socket.emit('getForums', data);
       }, (error) => {
+        console.log('______(((((forums error)))))))_______', error);
         socket.emit('getforums', error);
       });
       
