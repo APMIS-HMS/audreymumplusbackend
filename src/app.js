@@ -48,31 +48,22 @@ app.configure(socketio((function (io) {
       }).then((forums) => {
         socket.emit('getForums', forums);
       });
-      
-      // var promise1 = new Promise((resolve, reject) => {
-      //   const getForums = app.service('forum').find();
-
-      //   if (getForums.length > 0) {
-      //     resolve(getForums);
-      //   } else {
-      //     reject({message: 'No forums found'});
-      //   }
-      // });
-
-      // promise1.then((data) => {
-      //   console.log('____)))))forums(((((((_______', data);
-      //   socket.emit('getForums', data);
-      // }, (error) => {
-      //   console.log('______(((((forums error)))))))_______', error);
-      //   socket.emit('getforums', error);
-      // });
-      
     });
-    socket.emit('forums', { text: 'Hey Thad!' });
-    socket.on('feedback', function (connected) {
-      console.log('==========connected===========', connected);
+
+    socket.on('getChats',function(getChats){
+      new Promise((resolve)=>{
+        const getC =  app.service('chat').find({query:{forumName:getChats.forumName}});
+        resolve(getC);
+      }).then((chats)=>{
+        socket.emit('getChats',chats);
+      });
     });
+    // socket.emit('forums', { text: 'Hey Thad!' });
+    // socket.on('feedback', function (connected) {
+    //   console.log('==========connected===========', connected);
+    // });
     socket.on('chat', function (user) {
+
       app.service('chat').create(user);
       console.log('==========**user***===========', user);
     });
