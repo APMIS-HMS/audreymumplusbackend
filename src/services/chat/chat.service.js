@@ -5,11 +5,11 @@ const hooks = require('./chat.hooks');
 
 module.exports = function (app) {
   const Model = createModel(app);
-  const paginate = app.get('paginate');
+  //const paginate = app.get('paginate');
 
   const options = {
     Model,
-    paginate
+    // paginate
   };
 
   //Configure chat app
