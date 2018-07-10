@@ -45,12 +45,13 @@ app.configure(socketio((function (io) {
     socket.on('feedback', function (connected) {
       console.log('==========connected===========', connected);
     });
+    socket.on('chat',function(user){
+      console.log('==========**user***===========', user);
+    });
+
   });
 
-  io.on('chat',function(user){
-    console.log('==========**user***===========', user);
-  });
-
+ 
   app.service('chat').publish('created',(data, context) => {
     io.emit('created',{message:data});
     //const user = context.params.user;
