@@ -19,6 +19,7 @@ module.exports = function (app) {
     spousephone:{type: String, required: false},
     hospitalname:{type: String, required: false},
     hospitalstate:{type: String, required: false},
+    profileImage:{type:Schema.Types.Mixed, required:false},
     edd:{type: String, required: false},
     ExpectedDateOfDelivery: { type: Date, 'default':Date.now, required: false },
     noOfPreviousChildren: { type: Number,'default':0, required: false },

@@ -10,9 +10,7 @@ module.exports = function (app) {
     personId:{type:Schema.Types.ObjectId, required: true},
     password: { type: String, required: true },
     firstName: { type: String, required: false },
-    lastName: { type: String, required: false },
-    profileImage:{type:Schema.Types.Mixed, required:false}
-
+    lastName: { type: String, required: false }
   }, {
     timestamps: true
   });
