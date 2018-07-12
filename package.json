@@ -43,6 +43,7 @@
     "dotenv": "^6.0.0",
     "feathers-blob": "^2.0.1",
     "feathers-mongoose": "^6.1.1",
+    "fs-blob-store": "^5.2.1",
     "generator-feathers": "^2.5.3",
     "helmet": "^3.12.1",
     "jsend": "^1.0.2",
