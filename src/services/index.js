@@ -9,6 +9,8 @@ const users = require('./users/users.service.js');
 const savePerson = require('./save-person/save-person.service.js');
 const weeklyProgres = require('./weekly-progres/weekly-progres.service.js');
 const weeklyProgress = require('./weekly-progress/weekly-progress.service.js');
+const profileImg = require('./profile-img/profile-img.service.js');
+const profilePix = require('./profile-pix/profile-pix.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(people);
@@ -22,4 +24,6 @@ module.exports = function (app) {
   app.configure(savePerson);
   app.configure(weeklyProgres);
   app.configure(weeklyProgress);
+  app.configure(profileImg);
+  app.configure(profilePix);
 };

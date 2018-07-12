@@ -40,7 +40,6 @@ class Service {
 
         try {
           const makeRequest = await this.personOptions(url, person);
-          console.log('==================makeRequest====================\n', makeRequest);
           // Convert callback from APMIS (makeRquest) to JSON
           const parseRequest = JSON.parse(makeRequest);
           //Verify if the request to APMIS was successful
@@ -138,7 +137,6 @@ class Service {
         } catch (error) {
           //Initialise error response message
           res = JSON.stringify(error, null, 2);
-          console.log('====================Response=====================\n', res);
           const response = JSON.parse(res);
           const errorBody = JSON.parse(response.response.body);
 
@@ -153,7 +151,7 @@ class Service {
         }
       }
     } catch (error) {
-      console.log(error);
+      return jsend.error(error);
     }
 
   }
