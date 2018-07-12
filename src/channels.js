@@ -87,34 +87,4 @@ module.exports = function (app) {
   //     return app.channel(data.facilityId);
   // });
 
-  app.service('journal').publish((data) => {
-    //console.log('=======================Journal=======================\n', data);
-    return app.channel(data);
-  });
-
-  app.service('pack-application').publish((data) => {
-    //console.log('=======================Pack App=======================\n', data);
-    return app.channel(data);
-  });
-
-  app.service('users').publish((data, context) => {
-
-    //console.log('=======================context=======================\n', context);
-    //console.log('\n=======================Data yeah!=======================\n', data);
-    // if (context.params.query !== undefined) {
-    //   if (context.params.query !== undefined) {
-    //     return app.channel(context.params.query.facilityId);
-    //   }
-    // }
-  });
-
-  app.service('broadcast').publish((data) => {
-    //console.log('=======================Broadcast=======================\n', data);
-    return app.channel(data);
-  });
-
-  app.service('dev-milestone').publish((data) => {
-    //console.log('=======================Mile Stone=======================\n', data);
-    return app.channel(data._id);
-  });
 };
