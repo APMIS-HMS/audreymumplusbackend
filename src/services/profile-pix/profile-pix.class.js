@@ -17,7 +17,7 @@ class Service {
 
   async create(data, params) {
     console.log('=======Inside profile-pix========\n','===Got the data===\n',data,'====================');
-    const profileImageService = this.app.service('profile-pix');
+    const profileImageService = this.app.service('profile-img');
     const peopleService = this.app.service('people');
     let host = this.app.get('host');
     const port = this.app.get('port');
@@ -33,6 +33,7 @@ class Service {
           if(addProfilePix._id !== ''){
             (host === 'localhost') ? host = `http://${host}:${port}` : host;
             profileImage = `${host}/img/products/${addProfilePix.id}`;
+            console.log('=================ProfileImage Url===========\n',profileImage);
             patchPeople = await peopleService.patch(data.peopleId,{profileImage:profileImage});
             console.log('*********-------Patch People-----************\n',patchPeople);
             return jsend.success(patchPeople);
