@@ -1,3 +1,10 @@
+#Environmental Variables
+*.env
+.env
+
+#Development Environment
+.vscode
+
 # Logs
 logs
 *.log
