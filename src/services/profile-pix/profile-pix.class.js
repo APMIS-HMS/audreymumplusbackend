@@ -16,7 +16,7 @@ class Service {
   }
 
   async create(data, params) {
-    console.log('=======Inside profile-pix========\n','===Got the data===\n',data,'====================');
+    // console.log('=======Inside profile-pix========\n','===Got the data===\n',data,'====================');
     const profileImageService = this.app.service('profile-img');
     const peopleService = this.app.service('people');
     let host = this.app.get('host');
@@ -32,7 +32,8 @@ class Service {
           addProfilePix = await profileImageService.create(data);
           if(addProfilePix._id !== ''){
             (host === 'localhost') ? host = `http://${host}:${port}` : host;
-            profileImage = `${host}/img/products/${addProfilePix.id}`;
+            console.log('THis is my host'+host);
+            profileImage = `${host}/img/profile-imgs/${addProfilePix.id}`;
             console.log('=================ProfileImage Url===========\n',profileImage);
             patchPeople = await peopleService.patch(data.peopleId,{profileImage:profileImage});
             console.log('*********-------Patch People-----************\n',patchPeople);
