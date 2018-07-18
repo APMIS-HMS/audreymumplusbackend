@@ -20,7 +20,7 @@ module.exports = function (app) {
     hospitalname:{type: String, required: false},
     hospitalstate:{type: String, required: false},
     profileImage:{type:Schema.Types.Mixed, required:false},
-    ExpectedDateOfDelivery: { type: Date, 'default':Date.now, required: false },
+    ExpectedDateOfDelivery: { type: Date, required: false },
     noOfPreviousChildren: { type: Number,'default':0, required: false },
     isActive: { type: Boolean, 'default':true, required: false }
   }, {
