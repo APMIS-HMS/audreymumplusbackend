@@ -10,7 +10,9 @@ module.exports = function (app) {
     personId:{type:Schema.Types.ObjectId, required: true},
     password: { type: String, required: true },
     firstName: { type: String, required: false },
-    lastName: { type: String, required: false }
+    lastName: { type: String, required: false },
+    week: {type: String, 'default': 'Week 1', required: false},
+    day: {type: Number, 'default': 0, required: false}
   }, {
     timestamps: true
   });
