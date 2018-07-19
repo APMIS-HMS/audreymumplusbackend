@@ -11,6 +11,7 @@ module.exports = function (app) {
     password: { type: String, required: true },
     firstName: { type: String, required: false },
     lastName: { type: String, required: false },
+    ExpectedDateOfDelivery: { type: Date, required: false },
     week: {type: String, 'default': 'Week 1', required: false},
     day: {type: Number, 'default': 0, required: false}
   }, {
