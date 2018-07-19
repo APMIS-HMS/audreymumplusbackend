@@ -22,6 +22,8 @@ module.exports = function (app) {
     profileImage:{type:Schema.Types.Mixed, required:false},
     ExpectedDateOfDelivery: { type: Date, required: false },
     noOfPreviousChildren: { type: Number,'default':0, required: false },
+    week: {type: String, 'default': 'Week 1', required: false},
+    day: {type: Number, 'default': 0, required: false},
     isActive: { type: Boolean, 'default':true, required: false }
   }, {
     timestamps: true
