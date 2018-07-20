@@ -24,7 +24,7 @@ module.exports = function (app) {
     noOfPreviousChildren: { type: Number,'default':0, required: false },
     isActive: { type: Boolean, 'default':true, required: false },
     week: {type: String, 'default': 'Week 1', required: false},
-    day: {type: Number, 'default': 0, required: false}
+    day: {type: Number, 'default': 1, required: false}
   }, {
     timestamps: true
   });
