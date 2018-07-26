@@ -68,7 +68,7 @@ app.configure(socketio((function (io) {
     });
 
     app.service('chat').publish('created', (data, context) => {
-      socket.broadcast.emit('created', { message: data });
+      socket.emit('created', { message: data });
       //const user = context.params.user;
       //return app.publish(app.channel('authenticated'));
       return app.publish(data);
