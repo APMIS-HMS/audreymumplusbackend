@@ -8,7 +8,8 @@ module.exports = function (app) {
   const chat = new Schema({
     forumName:{type:String, required:false},
     message: { type: String, required: true },
-    email: { type: String, required: true }
+    email: { type: String, required: true },
+    userName: { type: String, required: false }
   }, {
     timestamps: true
   });
