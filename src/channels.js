@@ -68,12 +68,15 @@ module.exports = function (app) {
 
 
   app.service('authentication').publish((data) => {
+    console.log('=============Got here anyways============\n');
     let forums = data.forums;
-    if (forums.length > 0) {
-      forums.forEach(element => {
-        let forumChannel = app.channel(element.name);
-        forumChannel.join(data.email);
-      });
+    if (forums !== undefined) {
+      if(forums.length > 0){
+        forums.forEach(element => {
+          let forumChannel = app.channel(element.name);
+          forumChannel.join(data.email);
+        });
+      }
     }
     let forumGrp = app.channels;
     console.log('===================hmmmmmmmmmmmmmmmmm======\n',forumGrp);
