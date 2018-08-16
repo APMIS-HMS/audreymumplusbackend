@@ -40,7 +40,7 @@ app.use('/', express.static(app.get('public')));
 app.configure(express.rest());
 app.configure(socketio((function (io) {
   io.on('connection', function (socket) {
-    
+    app.channel('').join();
     socket.on('getForums',function(getForums){
       new Promise ((resolve) => {
         const getF = app.service('forum').find();

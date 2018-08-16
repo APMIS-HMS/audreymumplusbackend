@@ -8,10 +8,10 @@ module.exports = function (app) {
     // On a new real-time connection, add it to the anonymous channel
     //console.log('connection\n ====',connection.provider);
     app.channel('anonymous').join(connection);
+    app.channel('general').join(connection);
 
-    if(connection){
-      // const user = connection.user;
-      //connection.emit('msg',user);
+    if (connection) {
+      //
     }
 
   });
@@ -19,16 +19,7 @@ module.exports = function (app) {
   app.on('login', (authResult, { connection }) => {
     // connection can be undefined if there is no
     // real-time connection, e.g. when logging in via REST
-    // if (authResult.accessToken !== undefined) {
-    //   app.on('connection', connect => {
-    //     console.log('===============in connection via rest==============\n',connect);
-    //     app.channel('forum').join(connect);
-    //     app.on('feedback',function (connected) {
-    //       console.log('==========Inside channels.js listening on feedbaack===========', connected);
-    //     });
-    //   });
 
-    // }
     if (connection) {
       // Obtain the logged in user from the connection
       // const user = connection.user;
@@ -76,15 +67,15 @@ module.exports = function (app) {
   // });
 
 
-  // app.service('chat').publish('created',(data,context) => {
-  //   console.log('=======================Chat channel=======================\n', data);
-  //   console.log('=======================Chat context=======================\n', context);
-
-  //   return app.channel(data.text);
-  // });
-
-  //   app.service('patients').publish('created', (data) => {
-  //     return app.channel(data.facilityId);
-  // });
-
+  app.service('users').publish((data) => {
+    let forums = data.forums;
+    if (forums.length > 0) {
+      forums.forEach(element => {
+        let forumChannel = app.channel(element.name);
+        forumChannel.join(data.email);
+      });
+    }
+    let forumGrp = app.channels;
+    console.log('===================hmmmmmmmmmmmmmmmmm======\n',forumGrp);
+  });
 };
