@@ -67,7 +67,7 @@ module.exports = function (app) {
   // });
 
 
-  app.service('users').publish((data) => {
+  app.service('authentication').publish((data) => {
     let forums = data.forums;
     if (forums.length > 0) {
       forums.forEach(element => {
