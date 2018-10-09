@@ -68,10 +68,15 @@ module.exports = function (app) {
 
 
   app.service('authentication').publish((data) => {
-    console.log('=============Got here anyways============\n');
     let cons = app.channel('authenticated').connections;
 
+    console.log('=============Got here anyways============\n', cons);
+
+    console.log('\n=============data============\n',data);
+
     let consFilter = cons.filter(connect => connect.user.email.toString() === data.email.toString());
+
+    console.log('\n=============consFilter============\n',consFilter);
 
     let loggedInUser;
     if (consFilter.length > 0) {
@@ -84,7 +89,7 @@ module.exports = function (app) {
       if (forums !== undefined) {
         if(forums.length > 0){
           forums.forEach(element => {
-            let forumChannel = app.channel(element.name);
+            let forumChannel = this.app.channel(element.name);
             forumChannel.join(loggedInUser);
           });
         }
