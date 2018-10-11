@@ -68,36 +68,17 @@ module.exports = function (app) {
 
 
   app.service('authentication').publish((data) => {
-    let cons = app.channel('authenticated').connections;
-
-    console.log('=============Got here anyways============\n', cons);
-
-    console.log('\n=============data============\n',data);
-
-    let consFilter = cons.filter(connect => connect.user.email.toString() === data.email.toString());
-
-    console.log('\n=============consFilter============\n',consFilter);
-
-    let loggedInUser;
-    if (consFilter.length > 0) {
-      loggedInUser = consFilter[0];
-      console.log('=============loggedInUser============\n',loggedInUser);
-      // let channel = app.channel(data.email);
-      let authenticatedChannel = this.app.channel('authenticated');
-      authenticatedChannel.leave(loggedInUser);
-      let forums = data.forums;
-      if (forums !== undefined) {
-        if(forums.length > 0){
-          forums.forEach(element => {
-            let forumChannel = this.app.channel(element.name);
-            forumChannel.join(loggedInUser);
-          });
-        }
-      }
-    }
-
-    
+    app.emit('thad', data);
+    app.on('login',con=>{
+      console.log('******************connection************\n',con);
+    });
+   
     let forumGrp = app.channels;
-    console.log('===================hmmmmmmmmmmmmmmmmm======\n',forumGrp);
+    console.log('=======Group======\n',forumGrp);
+  });
+
+  app.service('chat').publish('created',(data) => {
+    console.log('-------------Got here------------\n',data);
+    return app.channel(data.email);
   });
 };
