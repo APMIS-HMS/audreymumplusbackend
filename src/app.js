@@ -40,53 +40,20 @@ app.use('/', express.static(app.get('public')));
 app.configure(express.rest());
 app.configure(socketio((function (io) {
   io.on('connection', function (socket) {
-    app.channel('').join();
-    socket.on('getForums',function(getForums){
-      new Promise ((resolve) => {
-        const getF = app.service('forum').find();
-        resolve(getF);
-      }).then((forums) => {
-        socket.emit('getForums', forums);
-      });
+
+    socket.on('forum', function (forum) {
+      socket.broadcast.emit(forum, forum);
     });
 
-    socket.on('getChats',function(getChats){
-      new Promise((resolve)=>{
-        const getC =  app.service('chat').find({query:{forumName:getChats.forumName}});
-        resolve(getC);
-      }).then((chats)=>{
-        socket.emit('getChats',chats);
-      });
+    // Registering Socket.io middleware
+    io.use(function (socket, next) {
+      // Exposing a request property to services and hooks
+      socket.feathers.user = socket.request.user;
+      next();
     });
-    // socket.emit('forums', { text: 'Hey Thad!' });
-    // socket.on('feedback', function (connected) {
-    //   console.log('==========connected===========', connected);
-    // });
-    socket.on('chat', function (user) {
-      app.service('chat').create(user);
-      console.log('==========**user***===========', user);
-    });
-
-    app.service('chat').publish('created', (data, context) => {
-      socket.emit('created', { message: data });
-      //const user = context.params.user;
-      //return app.publish(app.channel('authenticated'));
-      return app.publish(data);
-      //return app.channel(data.text);
-    });
-  });
-
-
-
-  // Registering Socket.io middleware
-  io.use(function (socket, next) {
-    // Exposing a request property to services and hooks
-    socket.feathers.user = socket.request.user;
-    next();
   }
-  );
-}
-)));
+  )
+})));
 
 app.configure(mongoose);
 
