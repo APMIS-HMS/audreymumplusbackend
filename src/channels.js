@@ -67,15 +67,28 @@ module.exports = function (app) {
 
 
   app.service('authentication').publish((data) => {
-    return app.publish(data);
-    });
-   
-    let forumGrp = app.channels;
-    console.log('=======Group======\n',forumGrp);
-  });
+    let cons = app.channel('authenticated').connections;
 
-  app.service('chat').publish('created',(data) => {
-    console.log('-------------Got here------------\n',data);
-    return app.channel(data.email);
+    let consFilter = cons.filter(connect => connect.user.email.toString() === data.email.toString());
+
+    let loggedInUser;
+    if (consFilter.length > 0) {
+      loggedInUser = consFilter[0];
+      // let channel = app.channel(data.email);
+      let authenticatedChannel = this.app.channel('authenticated');
+      authenticatedChannel.leave(loggedInUser);
+      let forums = data.forums;
+      if (forums !== undefined) {
+        if(forums.length > 0){
+          forums.forEach(element => {
+            let forumChannel = app.channel(element.name);
+            forumChannel.join(loggedInUser);
+          });
+        }
+      }
+    }
+
+    
+    
   });
 };

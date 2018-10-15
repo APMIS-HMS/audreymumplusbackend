@@ -38,7 +38,22 @@ app.use('/', express.static(app.get('public')));
 
 // Set up Plugins and providers
 app.configure(express.rest());
-app.configure(socketio());
+app.configure(socketio((function (io) {
+  io.on('connection', function (socket) {
+
+    socket.on('forum', function (forum) {
+      socket.broadcast.emit(forum, forum);
+    });
+
+    // Registering Socket.io middleware
+    io.use(function (socket, next) {
+      // Exposing a request property to services and hooks
+      socket.feathers.user = socket.request.user;
+      next();
+    });
+  }
+  );
+})));
 
 app.configure(mongoose);
 

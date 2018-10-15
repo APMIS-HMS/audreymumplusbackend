@@ -6,7 +6,9 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const forum = new Schema({
-    name:{type: String, unique:true, required:true }
+    name:{type: String, unique:true, required:true },
+    approved: {type: Boolean, 'default': false},
+    forumMemberCount: {type: Number, 'default': 0}
   }, {
     timestamps: true
   });
