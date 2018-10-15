@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+const jsend = require('jsend');
 class Service {
   constructor(options) {
     this.options = options || {};
@@ -14,24 +15,22 @@ class Service {
     };
   }
 
-  create(data, params) {
-    let cons = this.app.channel('authenticated').connections;
-
-    let consFilter = cons.filter(connect => connect.user._id.toString() === data.userId.toString());
-
-    let loggedInUser;
-    if (consFilter.length > 0) {
-      loggedInUser = consFilter[0];
-
-      let channel = this.app.channel(data.email);
-      let authenticatedChannel = this.app.channel('authenticated');
-      authenticatedChannel.leave(loggedInUser);
+  async create(data, params) {
+    let joinForumService = this.app.service('join-forum');
+    let addToForum;
+    if(data.personId !== undefined && data.forumName !== undefined){
+      let userRequest = {
+        personId:data.personId,
+        forumName:data.forumName
+      };
+      try {
+        addToForum = await joinForumService.post(userRequest);
+      } catch (error) {
+        return jsend.error({message:'There was an error when trying to join forum',code:204,data:{error:error}});
+      }
     }
-    if (Array.isArray(data)) {
-      return Promise.all(data.map(current => this.create(current, params)));
-    }
-
-    return data;
+    
+    return addToForum;
   }
 
   async update(id, data, params) {

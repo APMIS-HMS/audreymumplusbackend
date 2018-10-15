@@ -47,6 +47,7 @@
     "generator-feathers": "^2.5.3",
     "helmet": "^3.12.1",
     "jsend": "^1.0.2",
+    "mongodb-core": "^3.1.7",
     "mongoose": "^5.1.2",
     "request": "^2.87.0",
     "request-promise": "^4.2.2",

@@ -27,7 +27,6 @@ class Service {
 
     try {
       const getUser = await userService.find({ query: { email: email } });
-      console.log('GEt User =>', getUser);
       if (getUser.data.length > 0) {
         return jsend.error('User email already exist');
       } else {

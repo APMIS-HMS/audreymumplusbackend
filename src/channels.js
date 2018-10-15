@@ -13,7 +13,6 @@ module.exports = function (app) {
     if (connection) {
       //
     }
-
   });
 
   app.on('login', (authResult, { connection }) => {
@@ -68,9 +67,7 @@ module.exports = function (app) {
 
 
   app.service('authentication').publish((data) => {
-    app.emit('thad', data);
-    app.on('login',con=>{
-      console.log('******************connection************\n',con);
+    return app.publish(data);
     });
    
     let forumGrp = app.channels;
