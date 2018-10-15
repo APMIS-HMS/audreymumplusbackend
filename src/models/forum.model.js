@@ -7,8 +7,8 @@ module.exports = function (app) {
   const { Schema } = mongooseClient;
   const forum = new Schema({
     name:{type: String, unique:true, required:true },
-    approved: {type: Boolean, Default: false},
-    forumMemberCount: {type: Number, Default: 0}
+    approved: {type: Boolean, 'default': false},
+    forumMemberCount: {type: Number, 'default': 0}
   }, {
     timestamps: true
   });
