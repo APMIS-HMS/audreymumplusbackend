@@ -73,7 +73,7 @@ class Service {
     } catch (error) {
       return jsend.error({ message: 'Reset password failed!', number: 101, data: { errorDetail: error } });
     }
-}
+  }
 
   async update(id, data, params) {
     return data;

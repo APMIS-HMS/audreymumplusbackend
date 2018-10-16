@@ -1,7 +1,12 @@
 /* eslint-disable no-unused-vars */
+const jsend = require('jsend');
 class Service {
   constructor (options) {
     this.options = options || {};
+  }
+
+  setup(app){
+    this.app = app;
   }
 
   async find (params) {
@@ -15,11 +20,18 @@ class Service {
   }
 
   async create (data, params) {
-    if (Array.isArray(data)) {
-      return Promise.all(data.map(current => this.create(current, params)));
-    }
+    const chatService = this.app.service('chat');
+    try {
+      let getChat = await chatService.find({query:{forumName:data.forumName,$and: [{
+        updatedAt: {
+          $gte: data.createdAt
+        }
+      }]}});
 
-    return data;
+      return jsend.success(getChat);
+    } catch (error) {
+      return jsend.error({message:'Could not pull chat',code:519,data:{error:error}});
+    }
   }
 
   async update (id, data, params) {
