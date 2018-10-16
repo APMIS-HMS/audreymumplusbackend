@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 const emailer = require('../../custom/emailer');
 let jsend = require('jsend');
+
 class Service {
   constructor(options) {
     this.options = options || {};
@@ -20,34 +21,59 @@ class Service {
     let UserService = this.app.service('users');
 
     try {
+      
+      let getUser = await UserService.find({query:{email:data.email}});
+      
+      let id = getUser.data[0]._id;
+
+      let name =getUser.data[0].firstName+' '+getUser.data[0].lastName;
+        
       //
       if (data.email === undefined) {
         return jsend.error({ message: 'email is required!' });
       }
-      if (data.token === null) {
+      if (data.newPassword === undefined) {
+        
         let generateToken = this.autoGeneratePassword();
-        let updatePass = await UserService.update(data.id, { password: generateToken }, {});
-        console.log('After update:===\n',updatePass);
+        
+        getUser.data[0].password = generateToken;
+        let userData = getUser.data[0];
+        
+        //let updatePass = 
+        await UserService.update(id,userData, {});
+        
         let mailData = {
           generatedPass: generateToken,
-          email: data.email
+          email: data.email,
+          name: name
         };
         emailer.sendToken(mailData);
+        return jsend.success(mailData);
+      } 
+
+      let getNewCredentials = await UserService.find({query:{_id:id}});
+
+      if(params.user.password !== getNewCredentials.data[0].password){
+        return jsend.error({ message: 'Authentication of user failed!', number: 419, data: { errorDetail: 'Not a logged in user' } });
+        
+      }else if (data.newPassword !== data.reEnterPassword) {
+        return jsend.error({ message: 'The passwords does not match' });
       } else {
-        if (data.newPassword !== data.reEnterPassword) {
-          return jsend.error({ message: 'The passwords does not match' });
-        } else {
-          let newPass = await UserService.update(data.id, { password:data.newPassword }, {});
-          console.log('After update:===\n',newPass);
-          return newPass;
-        }
+        getNewCredentials.data[0].password = data.newPassword;
+        let newUserData = getNewCredentials.data[0];
+        let newPass = await UserService.update(id, newUserData, {});
+        let mailData = {
+          email: data.email,
+          name: name
+        };
+        emailer.confirmReset(mailData);
+        return jsend.success(newPass);
       }
+      
     } catch (error) {
       return jsend.error({ message: 'Reset password failed!', number: 101, data: { errorDetail: error } });
     }
-
-    //return data;
-  }
+}
 
   async update(id, data, params) {
     return data;
@@ -69,6 +95,10 @@ class Service {
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
+  }
+
+  setup(app) {
+    this.app = app;
   }
 }
 
