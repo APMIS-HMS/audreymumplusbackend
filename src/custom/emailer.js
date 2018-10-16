@@ -224,8 +224,8 @@ function emailOtpTemplate(themeMessage, titleMessage, data) {
 }
 
 function sendToken(data) {
-  const title = 'Confirm Your APMIS Registration';
-  const message = `Please use the OTP code ${data.verificationToken} to complete your registration.`;
+  const title = 'AudreyMum plus password reset';
+  const message = `Please use the OTP code ${data.generatedPass} to login and complete your password reset.`;
   let tem = emailOtpTemplate(message, title, data);
   let sender = 'help@theaudreypack.com';
   sendEmailViaApi(sender, data.email, title, tem);

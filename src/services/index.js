@@ -14,6 +14,7 @@ const profilePix = require('./profile-pix/profile-pix.service.js');
 const joinForumChannel = require('./join-forum-channel/join-forum-channel.service.js');
 const resetPassword = require('./reset-password/reset-password.service.js');
 const joinForum = require('./join-forum/join-forum.service.js');
+const getChat = require('./get-chat/get-chat.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(people);
@@ -32,4 +33,5 @@ module.exports = function (app) {
   app.configure(joinForumChannel);
   app.configure(resetPassword);
   app.configure(joinForum);
+  app.configure(getChat);
 };
