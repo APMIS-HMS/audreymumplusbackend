@@ -48,7 +48,9 @@ class Service {
           name: name
         };
         emailer.sendToken(mailData);
-        mailData.remove('generatedPass');
+
+        delete mailData.generatedPass;
+        
         return jsend.success(mailData);
       } 
 
