@@ -52,7 +52,7 @@ class Service {
 
       let getNewCredentials = await UserService.find({query:{_id:data.id}});
 
-      if(params.headers.authorization.includes(data.accessToken)){
+      if(!params.headers.authorization.includes(data.accessToken)){
         return jsend.error({ message: 'Authentication of user failed!', number: 419, data: { errorDetail: 'Not a logged in user' } });
         
       }else if (data.newPassword !== data.reEnterPassword) {
@@ -66,6 +66,7 @@ class Service {
           name: name
         };
         emailer.confirmReset(mailData);
+        delete newPass.password;
         return jsend.success(newPass);
       }
       
