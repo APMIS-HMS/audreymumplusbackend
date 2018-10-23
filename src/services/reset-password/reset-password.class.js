@@ -23,6 +23,8 @@ class Service {
     try {
       
       let getUser = await UserService.find({query:{email:data.email}});
+
+      console.log('========================\n',getUser);
       
       let id = getUser.data[0]._id;
 
@@ -49,7 +51,7 @@ class Service {
         };
         emailer.sendToken(mailData);
 
-        delete mailData.generatedPass;
+        //delete mailData.generatedPass;
         
         return jsend.success(mailData);
       } 
@@ -57,6 +59,7 @@ class Service {
       let getNewCredentials = await UserService.find({query:{_id:id}});
 
       if(params.user.password !== getNewCredentials.data[0].password){
+        console.log('**********Blessed is he who comes***************');
         return jsend.error({ message: 'Authentication of user failed!', number: 419, data: { errorDetail: 'Not a logged in user' } });
         
       }else if (data.newPassword !== data.reEnterPassword) {
