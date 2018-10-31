@@ -4,10 +4,9 @@ const hooks = require('./weekly-progress.hooks');
 
 module.exports = function (app) {
   
-  const paginate = app.get('paginate');
+  //const paginate = app.get('paginate');
 
   const options = {
-    paginate,
     app:app
   };
 
